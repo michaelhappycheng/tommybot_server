@@ -1,0 +1,446 @@
+// Node.js module imports
+var express = require('express');
+var bodyParser = require('body-parser');
+var apiai = require('apiai');
+var request = require('request');
+var app = express();
+var MongoClient = require('mongodb').MongoClient, assert = require('assert');
+
+// Setting port to default 5000 if there are no assigned ports
+app.set('port', (process.env.PORT || 5000));
+
+//authenticating into Facebook and API.AI
+var token = (facebookToken);
+var apiaiApp = apiai(apiaiToken);
+
+//connect to database
+var url = (MONGODB_URI);
+
+// Process application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}));
+
+// Process application/json
+app.use(bodyParser.json());
+
+// Index route
+app.get('/', function (req, res) {
+    res.send('Hello world, I am a chat bot');
+});
+
+// for facebook verification
+app.get('/webhook/', function (req, res) {
+    if (req.query['hub.verify_token'] === facebookSecret) {
+        res.send(req.query['hub.challenge']);
+    }
+    res.send('Error, wrong token');
+});
+
+app.post('/webhook/', function (req, res) {
+    messaging_events = req.body.entry[0].messaging;
+    for (i = 0; i < messaging_events.length; i++) {
+        event = req.body.entry[0].messaging[i];
+        sender = event.sender.id;
+        if (event.message && event.message.text) {
+            text = event.message.text;
+            sendDots(sender);
+            apiaiCall(text, sender);
+        }
+        if (event.postback) {
+            text = event.postback.payload;
+            apiaiCall(text, sender);
+        }
+    }
+    res.sendStatus(200);
+})
+
+function apiaiCall(text, sender) {
+    var request = apiaiApp.textRequest(text, {sessionId: apiaiSessionId}); //sends text request to api.ai
+
+    request.on('response', function(response) {
+        console.log(response.result.fulfillment.speech); {
+        if (response.result.fulfillment.speech != "") {
+            sendTextMessage(sender, response.result.fulfillment.speech);
+        }
+        else if (response.result.action == "getMenu") {
+            if (response.result.parameters.dininghall != '') {
+                if (response.result.parameters.mealtype == '') {
+                    MongoClient.connect(url, function(err, db) {
+                    assert.equal(null, err);
+                    console.log("Connected correctly to server");
+                    var dininghalls = db.collection('dininghalls'); //finding building
+
+                    // roundabout way to get today's date
+                    var clientDate = new Date();
+                    utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+                    var date = new Date(utc + (3600000*-8));
+                    var datestring = ("0" + (date.getMonth() + 1).toString()).substr(-2) + "/" + ("0" + date.getDate().toString()).substr(-2)  + "/" + (date.getFullYear().toString()).substr(2);
+                    //
+
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'date': datestring}).toArray(function(err, returnedMenu) {
+                        //assert.equal(err, null);
+                        //assert.equal(4, returnedMenu.length);
+                        console.log(returnedMenu.length);
+                        sendMenuChoiceCard(sender, response.result.parameters.dininghall, returnedMenu);
+                        });
+                    db.close();
+                    });  
+                }
+                else if (response.result.parameters.mealtype == 'breakfast') {
+                    MongoClient.connect(url, function(err, db) {
+                    assert.equal(null, err);
+                    console.log("Connected correctly to server");
+                    var dininghalls = db.collection('dininghalls'); //finding building
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Breakfast"}).toArray(function(err, returnedMenu) {
+                        console.log(returnedMenu);
+                        assert.equal(err, null);
+                        assert.equal(1, returnedMenu.length);
+                        sendMenuCard(sender, returnedMenu);
+                        });
+                    db.close();
+                    });  
+                }
+                else if (response.result.parameters.mealtype == 'brunch') {
+                    MongoClient.connect(url, function(err, db) {
+                    assert.equal(null, err);
+                    console.log("Connected correctly to server");
+                    var dininghalls = db.collection('dininghalls'); //finding building
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Brunch"}).toArray(function(err, returnedMenu) {
+                        console.log(returnedMenu);
+                        assert.equal(err, null);
+                        assert.equal(1, returnedMenu.length);
+                        sendMenuCard(sender, returnedMenu);
+                        });
+                    db.close();
+                    });  
+                }
+                else if (response.result.parameters.mealtype == 'lunch') {
+                    MongoClient.connect(url, function(err, db) {
+                    assert.equal(null, err);
+                    console.log("Connected correctly to server");
+                    var dininghalls = db.collection('dininghalls'); //finding building
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Lunch"}).toArray(function(err, returnedMenu) {
+                        console.log(returnedMenu);
+                        assert.equal(err, null);
+                        assert.equal(1, returnedMenu.length);
+                        sendMenuCard(sender, returnedMenu);
+                        });
+                    db.close();
+                    });  
+                }
+                else if (response.result.parameters.mealtype == 'dinner') {
+                    MongoClient.connect(url, function(err, db) {
+                    assert.equal(null, err);
+                    console.log("Connected correctly to server");
+                    var dininghalls = db.collection('dininghalls'); //finding building
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Dinner"}).toArray(function(err, returnedMenu) {
+                        console.log(returnedMenu);
+                        assert.equal(err, null);
+                        assert.equal(1, returnedMenu.length);
+                        sendMenuCard(sender, returnedMenu);
+                        });
+                    db.close();
+                    });  
+                }
+            }
+            else {
+                sendTextMessage(sender, "Can you rewrite the question with a specified dining hall? It's easier to send a message with a more concise question!");
+            }
+        }
+        else if (response.result.action == "getLocation") {
+            if (response.result.parameters.building != ''){
+            MongoClient.connect(url, function(err, db) {
+                assert.equal(null, err);
+                console.log("Connected correctly to server");
+                var buildings = db.collection('buildings'); //finding building
+                buildings.find({'id': response.result.parameters.building}).toArray(function(err, returnedBuilding) {
+                    //assert.equal(err, null);
+                    //assert.equal(1, returnedBuilding.length);
+                    var hyperlinkBuildingAddress = returnedBuilding[0].address.replace(/ /g, "%20"); //reformats text for hyperlink
+                    sendBuildingCard(sender, returnedBuilding[0], hyperlinkBuildingAddress);
+                    sendTextMessage(sender, "iPhone Users: Open the Google Maps button below in Safari for optimal navigation!");
+                });
+                db.close();
+            });
+            }
+            else { 
+            sendTextMessage(sender, "We know you want the location of someplace, but we aren't able to figure it out exactly. Can you clarify?");
+            }
+        }
+        else if (response.result.action == "getAcademicEvent"){
+            MongoClient.connect(url, function(err, db) {
+                assert.equal(null, err);
+                console.log("Connected correctly to server");
+                var calender = db.collection('academicCalender'); //find dates
+                calender.find({'id': response.result.parameters.eventtype}).toArray(function(err, returnedEvent) {
+                    //assert.equal(err, null);
+                    //assert.equal(1, returnedBuilding.length);
+                    if (returnedEvent.length != 0) {
+                        sendTextMessage(sender, returnedEvent[0].value + "!" );
+                    }
+                    else {
+                        sendTextMessage(sender, "I could not find that event! Either I misunderstood your inquiry or I just don't have that building in my database!")
+                    }
+                });
+                db.close();
+            });
+        }
+        else if (response.result.action == "getHours"){
+            MongoClient.connect(url, function(err, db) {
+                assert.equal(null, err);
+                console.log("Connected correctly to server");
+                var hours = db.collection('buildingHours'); //find dates
+                hours.find({'Building': response.result.parameters.buildingHours}).toArray(function(err, returnedEvent) {
+                    //assert.equal(err, null);
+                    //assert.equal(1, returnedBuilding.length);
+                    
+                    var clientDate = new Date();
+                    utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+                    var d = new Date(utc + (3600000*-8)); // this way we can get WEST COAST time!
+                    var n = d.getDay();
+                    
+                    if (returnedEvent.length != 0) {
+                        if (n == 0) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Sunday are " + returnedEvent[0].Sunday + "!" );
+                        }
+                        else if (n == 1) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Monday are " + returnedEvent[0].Monday + "!" );
+                        }
+                        else if (n == 2) {
+                           sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Tuesday are " + returnedEvent[0].Tuesday + "!" );
+                        }
+                        else if (n == 3) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Wednesday are " + returnedEvent[0].Wednesday + "!" );
+                          
+                        }
+                        else if (n == 4) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Thursday are " + returnedEvent[0].Thursday + "!" );
+                        }
+                        else if (n == 5) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Friday are " + returnedEvent[0].Friday + "!" );
+                        }
+                        else if (n == 6) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Saturday are " + returnedEvent[0].Saturday + "!" );
+                        }
+                    }
+                    else {
+                        sendTextMessage(sender, "Hmm, I don't have the hours of that building, could you try rewriting the building please?");
+                    }
+                    
+                    
+                });
+                db.close();
+            });
+        }
+        else {
+            sendTextMessage(sender, "Sorry, I'm only a baby, 2 months old to be exact -- I didn't understand that.")
+        }
+        }
+    });
+
+    request.on('error', function(error) {
+        console.log(error);
+    });
+    
+    request.end();
+}
+
+function sendMenuChoiceCard(senderID, diningHall, menu) {
+    messageData = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Which meal do you want? (Mon - Fri)",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Breakfast",
+            "payload": diningHall + " breakfast"
+          },
+          {
+            "type":"postback",
+            "title":"Lunch",
+            "payload": diningHall + " lunch"
+          },
+          {
+            "type":"postback",
+            "title":"Dinner",
+            "payload": diningHall + " dinner"
+          },
+        ]
+      }
+    }
+  }
+  messageData2 = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Which meal do you want? (Weekend)",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Brunch",
+            "payload": diningHall + " brunch"
+          },
+          {
+            "type":"postback",
+            "title":"Dinner",
+            "payload": diningHall + " dinner"
+          },
+        ]
+      }
+    }
+  }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:senderID},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:senderID},
+            message: messageData2,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+function sendMenuCard(senderID, menu) {
+    for (var i = 0; i < menu[0].stations.length; i++) {
+        var text = '';
+        text += menu[0].stations[i].name + ': ';
+        for (var j = 0; j < menu[0].stations[i].options.length; j++) {
+            text += menu[0].stations[i].options[j].name;
+            if (j != menu[0].stations[i].options.length-1) {
+            text += ', ';
+            }
+        }
+        messageData = {
+                text:text
+            }
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {access_token:token},
+            method: 'POST',
+            json: {
+                recipient: {id:senderID},
+                message: messageData,
+            }
+        }, function(error, response, body) {
+            if (error) {
+                 console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+                 console.log('Error: ', response.body.error);
+            }
+        })
+    }
+}
+
+function sendBuildingCard(senderID, building, hyperlinkText) {
+    messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": building.id + ": " + building.name,
+                    "subtitle": building.address,
+                    "image_url": "https://maps.googleapis.com/maps/api/staticmap?size=764x400&center=" + hyperlinkText,
+                    "buttons": [{
+                        "type": "web_url",
+                        "url": "http://google.com/maps/dir//" + hyperlinkText,
+                        "title": "Open in Google Maps"
+                    }, {
+                        "type": "web_url",
+                        "url": "http://maps.apple.com/?q=" + hyperlinkText,
+                        "title": "Open in Apple Maps"
+                    }],
+                }]
+            }
+        }
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:senderID},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+function sendTextMessage(sender, text) {
+    messageData = {
+        text:text
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    })
+}
+
+function sendDots(sender) {
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            sender_action: "typing_on",
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    })
+}
+
+function find (collec, query, callback) {
+    mongoose.connection.db.collection(collec, function (err, collection) {
+    collection.find(query).toArray(callback);
+    });
+}
+
+// Spin up the server
+app.listen(app.get('port'),  function() {
+    console.log('running on port', app.get('port'));
+})

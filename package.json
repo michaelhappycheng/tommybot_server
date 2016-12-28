@@ -1,0 +1,26 @@
+{
+  "name": "sloth_chat_bot",
+  "version": "1.0.0",
+  "description": "An artificial intelligence chatbot for the USC Community. ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinhe16/slothChatbot.git"
+  },
+  "author": "Sam Breck, Will Durkee, Justin He, Mimi Tran Zambetti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justinhe16/slothChatbot/issues"
+  },
+  "homepage": "https://github.com/justinhe16/slothChatbot#readme",
+  "dependencies": {
+    "apiai": "^3.0.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.11",
+    "request": "^2.75.0"
+  }
+}
