@@ -10,11 +10,11 @@ var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 app.set('port', (process.env.PORT || 5000));
 
 //authenticating into Facebook and API.AI
-var token = (facebookToken);
-var apiaiApp = apiai(apiaiToken);
+var token = (process.env.facebookToken);
+var apiaiApp = apiai(process.env.apiaiToken);
 
 //connect to database
-var url = (MONGODB_URI);
+var url = (process.env.MONGODB_URI);
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
@@ -29,7 +29,7 @@ app.get('/', function (req, res) {
 
 // for facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === facebookSecret) {
+    if (req.query['hub.verify_token'] === process.env.facebookSecret) {
         res.send(req.query['hub.challenge']);
     }
     res.send('Error, wrong token');
@@ -54,7 +54,7 @@ app.post('/webhook/', function (req, res) {
 })
 
 function apiaiCall(text, sender) {
-    var request = apiaiApp.textRequest(text, {sessionId: apiaiSessionId}); //sends text request to api.ai
+    var request = apiaiApp.textRequest(text, {sessionId: process.env.apiaiSessionId}); //sends text request to api.ai
 
     request.on('response', function(response) {
         console.log(response.result.fulfillment.speech); {
