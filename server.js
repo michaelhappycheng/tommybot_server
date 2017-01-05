@@ -44,7 +44,7 @@ app.post('/webhook/', function (req, res) {
             text = event.message.text;
             sendDots(sender);
             apiaiCall(text, sender);
-            console.log(sender);
+            console.log(sender + text);
         }
         if (event.postback) {
             text = event.postback.payload;
