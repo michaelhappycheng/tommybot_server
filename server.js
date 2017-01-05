@@ -67,23 +67,21 @@ function apiaiCall(text, sender) {
                     MongoClient.connect(url, function(err, db) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
-                    var dininghalls = db.collection('dininghalls'); //finding building
+                    var dininghalls = db.collection('dininghalls');
 
-                    // roundabout way to get today's date
+                    // roundabout way to get today's date in PST
                     var clientDate = new Date();
                     utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
                     var date = new Date(utc + (3600000*-8));
                     var datestring = ("0" + (date.getMonth() + 1).toString()).substr(-2) + "/" + ("0" + date.getDate().toString()).substr(-2)  + "/" + (date.getFullYear().toString()).substr(2);
-                    //
 
+                    // sends back FB card for user to select meal time
                     dininghalls.find({'name': response.result.parameters.dininghall, 'date': datestring}).toArray(function(err, returnedMenu) {
-                        //assert.equal(err, null);
-                        //assert.equal(4, returnedMenu.length);
                         console.log(returnedMenu.length);
                         sendMenuChoiceCard(sender, response.result.parameters.dininghall, returnedMenu);
                         });
                     db.close();
-                    });  
+                    });
                 }
                 else if (response.result.parameters.mealtype == 'breakfast') {
                     MongoClient.connect(url, function(err, db) {
@@ -97,7 +95,7 @@ function apiaiCall(text, sender) {
                         sendMenuCard(sender, returnedMenu);
                         });
                     db.close();
-                    });  
+                    });
                 }
                 else if (response.result.parameters.mealtype == 'brunch') {
                     MongoClient.connect(url, function(err, db) {
@@ -111,7 +109,7 @@ function apiaiCall(text, sender) {
                         sendMenuCard(sender, returnedMenu);
                         });
                     db.close();
-                    });  
+                    });
                 }
                 else if (response.result.parameters.mealtype == 'lunch') {
                     MongoClient.connect(url, function(err, db) {
@@ -125,7 +123,7 @@ function apiaiCall(text, sender) {
                         sendMenuCard(sender, returnedMenu);
                         });
                     db.close();
-                    });  
+                    });
                 }
                 else if (response.result.parameters.mealtype == 'dinner') {
                     MongoClient.connect(url, function(err, db) {
@@ -139,11 +137,11 @@ function apiaiCall(text, sender) {
                         sendMenuCard(sender, returnedMenu);
                         });
                     db.close();
-                    });  
+                    });
                 }
             }
             else {
-                sendTextMessage(sender, "Can you rewrite the question with a specified dining hall? It's easier to send a message with a more concise question!");
+                sendTextMessage(sender, "Can you rewrite the question with a specified dining hall? It's easier to send a message with a more concise question! You can pick from EVK, Parkside, and Cafe 84.");
             }
         }
         else if (response.result.action == "getLocation") {
@@ -153,51 +151,45 @@ function apiaiCall(text, sender) {
                 console.log("Connected correctly to server");
                 var buildings = db.collection('buildings'); //finding building
                 buildings.find({'id': response.result.parameters.building}).toArray(function(err, returnedBuilding) {
-                    //assert.equal(err, null);
-                    //assert.equal(1, returnedBuilding.length);
                     var hyperlinkBuildingAddress = returnedBuilding[0].address.replace(/ /g, "%20"); //reformats text for hyperlink
                     sendBuildingCard(sender, returnedBuilding[0], hyperlinkBuildingAddress);
-                    sendTextMessage(sender, "iPhone Users: Open the Google Maps button below in Safari for optimal navigation!");
+                    sendTextMessage(sender, "Mobile phone users: open the navigation in browser for more optimal performance.");
                 });
                 db.close();
             });
             }
-            else { 
+            else {
             sendTextMessage(sender, "We know you want the location of someplace, but we aren't able to figure it out exactly. Can you clarify?");
             }
         }
-        else if (response.result.action == "getAcademicEvent"){
+        else if (response.result.action == "getAcademicEvent") {
             MongoClient.connect(url, function(err, db) {
                 assert.equal(null, err);
                 console.log("Connected correctly to server");
                 var calender = db.collection('academicCalender'); //find dates
                 calender.find({'id': response.result.parameters.eventtype}).toArray(function(err, returnedEvent) {
-                    //assert.equal(err, null);
-                    //assert.equal(1, returnedBuilding.length);
                     if (returnedEvent.length != 0) {
                         sendTextMessage(sender, returnedEvent[0].value + "!" );
                     }
                     else {
-                        sendTextMessage(sender, "I could not find that event! Either I misunderstood your inquiry or I just don't have that building in my database!")
+                        sendTextMessage(sender, "I could not find that event! You can try rephrasing your question, or visit this site for a schedule of classes: http://classes.usc.edu/term-20171/calendar/ and this site for an overall academic schedule: http://academics.usc.edu/calendar/")
                     }
                 });
                 db.close();
             });
         }
-        else if (response.result.action == "getHours"){
+        else if (response.result.action == "getHours") {
             MongoClient.connect(url, function(err, db) {
                 assert.equal(null, err);
                 console.log("Connected correctly to server");
-                var hours = db.collection('buildingHours'); //find dates
+                var hours = db.collection('buildingHours'); // find stored building hours
                 hours.find({'Building': response.result.parameters.buildingHours}).toArray(function(err, returnedEvent) {
-                    //assert.equal(err, null);
-                    //assert.equal(1, returnedBuilding.length);
-                    
+
                     var clientDate = new Date();
                     utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
-                    var d = new Date(utc + (3600000*-8)); // this way we can get WEST COAST time!
+                    var d = new Date(utc + (3600000*-8)); // this way we can get PST time
                     var n = d.getDay();
-                    
+
                     if (returnedEvent.length != 0) {
                         if (n == 0) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Sunday are " + returnedEvent[0].Sunday + "!" );
@@ -210,7 +202,7 @@ function apiaiCall(text, sender) {
                         }
                         else if (n == 3) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Wednesday are " + returnedEvent[0].Wednesday + "!" );
-                          
+
                         }
                         else if (n == 4) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Thursday are " + returnedEvent[0].Thursday + "!" );
@@ -225,14 +217,13 @@ function apiaiCall(text, sender) {
                     else {
                         sendTextMessage(sender, "Hmm, I don't have the hours of that building, could you try rewriting the building please?");
                     }
-                    
-                    
                 });
                 db.close();
             });
         }
+
         else {
-            sendTextMessage(sender, "Sorry, I'm only a baby, 2 months old to be exact -- I didn't understand that.")
+            sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question?")
         }
         }
     });
@@ -240,7 +231,7 @@ function apiaiCall(text, sender) {
     request.on('error', function(error) {
         console.log(error);
     });
-    
+
     request.end();
 }
 
