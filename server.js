@@ -44,6 +44,7 @@ app.post('/webhook/', function (req, res) {
             text = event.message.text;
             sendDots(sender);
             apiaiCall(text, sender);
+            console.log(sender);
         }
         if (event.postback) {
             text = event.postback.payload;
@@ -55,7 +56,6 @@ app.post('/webhook/', function (req, res) {
 
 function apiaiCall(text, sender) {
     var request = apiaiApp.textRequest(text, {sessionId: process.env.apiaiSessionId}); //sends text request to api.ai
-    console.log(text);
 
     request.on('response', function(response) {
         console.log(response.result.fulfillment.speech); {
@@ -403,7 +403,7 @@ function sendTextMessage(sender, text) {
         if (error) {
             console.log('Error sending messages: ', error);
         } else if (response.body.error) {
-            console.log('Error: swag', response.body.error);
+            console.log('Error: ', response.body.error);
         }
     })
 }
