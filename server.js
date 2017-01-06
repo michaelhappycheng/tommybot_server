@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
             sendDots(sender);
             apiaiCall(text, sender);
             if (sender != 306268366415607) { // ignores messages sent by Tommy
-
+              recordMessageDataAnalytics(1);
             }
         }
         if (event.postback) {
@@ -434,7 +434,7 @@ function find(collec, query, callback) {
     });
 }
 
-function recordMessageDataAnalytics(var number) {
+function recordMessageDataAnalytics(number) {
   MongoClient.connect(url, function(err, db) {
       assert.equal(null, err);
       console.log("Connected correctly to server");
@@ -456,7 +456,7 @@ function recordMessageDataAnalytics(var number) {
       dataAnalytics.findAndModify({
         query: { date : todayStringFormat },
         sort: { rating : 1 },
-        update: { $inc: { score: 1 } },
+        update: { $inc: { numberOfMessages : number } },
         upsert: true
       })
 
