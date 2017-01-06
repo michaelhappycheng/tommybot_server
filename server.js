@@ -446,7 +446,7 @@ function recordMessageDataAnalytics(number) {
       var d = new Date(utc + (3600000*-8));
       var dd = d.getDate();
       var mm = d.getMonth() + 1;
-      var yyyy = today.getFullYear();
+      var yyyy = d.getFullYear();
       if (dd < 10) {
         dd = '0' + dd;
       }
