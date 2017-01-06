@@ -453,7 +453,7 @@ function recordMessageDataAnalytics(number) {
       var todayStringFormat = mm + '/' + dd + '/' + yyyy;
 
       // finds and modifies the proper code
-      dataAnalytics.findAndModify({ date : todayStringFormat },{ $inc: { numberOfMessages : number }},{ upsert: true }, function(err, doc){
+      dataAnalytics.findAndModify({ 'date' : todayStringFormat },{ $inc: { 'numberOfMessages' : number }},{ upsert: true }, function(err, doc){
         console.log('find and modified  ' +doc);
       });
 
