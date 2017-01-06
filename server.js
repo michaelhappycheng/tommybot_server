@@ -44,7 +44,9 @@ app.post('/webhook/', function (req, res) {
             text = event.message.text;
             sendDots(sender);
             apiaiCall(text, sender);
-            console.log(sender + text);
+            if (sender != 306268366415607) { // ignores messages sent by Tommy
+
+            }
         }
         if (event.postback) {
             text = event.postback.payload;
@@ -426,10 +428,40 @@ function sendDots(sender) {
     })
 }
 
-function find (collec, query, callback) {
+function find(collec, query, callback) {
     mongoose.connection.db.collection(collec, function (err, collection) {
     collection.find(query).toArray(callback);
     });
+}
+
+function recordMessageDataAnalytics(var number) {
+  MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected correctly to server");
+      var dataAnalytics = db.collection('dataAnalytics'); //finds the collection
+
+      // this way we can get PST time and date
+      var clientDate = new Date();
+      utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+      var d = new Date(utc + (3600000*-8));
+      var dd = d.getDate();
+      var mm = d.getMonth() + 1;
+      var yyyy = today.getFullYear();
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+      var todayStringFormat = mm + '/' + dd + '/' + yyyy;
+
+      // finds and modifies the proper code
+      dataAnalytics.findAndModify({
+        query: { date : todayStringFormat },
+        sort: { rating : 1 },
+        update: { $inc: { score: 1 } },
+        upsert: true
+      })
+
+      db.close();
+  });
 }
 
 // Spin up the server
