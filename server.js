@@ -95,8 +95,8 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealPreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        if (response.result.parameters.mealpreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
                         }
                         else {
                           sendMenuCard(sender, returnedMenu, 'none');
@@ -114,8 +114,8 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealPreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        if (response.result.parameters.mealpreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
                         }
                         else {
                           sendMenuCard(sender, returnedMenu, 'none');
@@ -133,8 +133,8 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealPreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        if (response.result.parameters.mealpreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
                         }
                         else {
                           sendMenuCard(sender, returnedMenu, 'none');
@@ -152,8 +152,8 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealPreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        if (response.result.parameters.mealpreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
                         }
                         else {
                           sendMenuCard(sender, returnedMenu, 'none');
