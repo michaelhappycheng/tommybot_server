@@ -95,7 +95,12 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        sendMenuCard(sender, returnedMenu);
+                        if (response.result.parameters.mealPreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        }
+                        else {
+                          sendMenuCard(sender, returnedMenu, 'none');
+                        }
                         });
                     db.close();
                     });
@@ -109,7 +114,12 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        sendMenuCard(sender, returnedMenu);
+                        if (response.result.parameters.mealPreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        }
+                        else {
+                          sendMenuCard(sender, returnedMenu, 'none');
+                        }
                         });
                     db.close();
                     });
@@ -123,7 +133,12 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        sendMenuCard(sender, returnedMenu);
+                        if (response.result.parameters.mealPreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        }
+                        else {
+                          sendMenuCard(sender, returnedMenu, 'none');
+                        }
                         });
                     db.close();
                     });
@@ -137,7 +152,12 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        sendMenuCard(sender, returnedMenu);
+                        if (response.result.parameters.mealPreferences != '') {
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealPreferences);
+                        }
+                        else {
+                          sendMenuCard(sender, returnedMenu, 'none');
+                        }
                         });
                     db.close();
                     });
@@ -162,7 +182,7 @@ function apiaiCall(text, sender) {
             });
             }
             else {
-            sendTextMessage(sender, "We know you want the location of someplace, but we aren't able to figure it out exactly. Can you clarify?");
+            sendTextMessage(sender, "Sorry, I couldn't understand that -- can you be more specific or try your building's 3-letter code? For a full list of buildings at USC, visit http://fmsmaps4.usc.edu/usc/php/bl_list_no.php");
             }
         }
         else if (response.result.action == "getAcademicEvent") {
@@ -318,14 +338,17 @@ function sendMenuChoiceCard(senderID, diningHall, menu) {
     })
 }
 
-function sendMenuCard(senderID, menu) {
+function sendMenuCard(senderID, menu, mealPreferences) {
+    sendTextMessage(senderID, "preferences for " + mealPreferences + " listed below.");
     for (var i = 0; i < menu[0].stations.length; i++) {
         var text = '';
         text += menu[0].stations[i].name + ': ';
         for (var j = 0; j < menu[0].stations[i].options.length; j++) {
-            text += menu[0].stations[i].options[j].name;
-            if (j != menu[0].stations[i].options.length-1) {
-            text += ', ';
+            if (mealPreferences != 'none' && menu[0].stations[i].options[j].tags.indexOf(mealPreferences) != -1) {
+              text += menu[0].stations[i].options[j].name;
+              if (j != menu[0].stations[i].options.length-1) {
+              text += ', ';
+              }
             }
         }
         messageData = {
