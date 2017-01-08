@@ -339,12 +339,15 @@ function sendMenuChoiceCard(senderID, diningHall, menu) {
 }
 
 function sendMenuCard(senderID, menu, mealPreferences) {
-    sendTextMessage(senderID, "preferences for " + mealPreferences + " listed below.");
+    if (mealPreferences != 'none') {
+      sendTextMessage(senderID, "preferences for " + mealPreferences + " listed.");
+    }
     for (var i = 0; i < menu[0].stations.length; i++) {
         var text = '';
         text += menu[0].stations[i].name + ': ';
         for (var j = 0; j < menu[0].stations[i].options.length; j++) {
           if (mealPreferences != 'none') {
+            console.log(menu[0].stations[i].options[j].tags);
             if (menu[0].stations[i].options[j].tags.indexOf(mealPreferences) != -1) {
               text += menu[0].stations[i].options[j].name;
               if (j != menu[0].stations[i].options.length-1) {
