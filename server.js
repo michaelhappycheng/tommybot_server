@@ -344,11 +344,19 @@ function sendMenuCard(senderID, menu, mealPreferences) {
         var text = '';
         text += menu[0].stations[i].name + ': ';
         for (var j = 0; j < menu[0].stations[i].options.length; j++) {
-            if (mealPreferences != 'none' && menu[0].stations[i].options[j].tags.indexOf(mealPreferences) != -1) {
+          if (mealPreferences != 'none') {
+            if (menu[0].stations[i].options[j].tags.indexOf(mealPreferences) != -1) {
               text += menu[0].stations[i].options[j].name;
               if (j != menu[0].stations[i].options.length-1) {
               text += ', ';
               }
+            }
+          }
+          else {
+            text += menu[0].stations[i].options[j].name;
+            if (j != menu[0].stations[i].options.length-1) {
+            text += ', ';
+          }
             }
         }
         messageData = {
