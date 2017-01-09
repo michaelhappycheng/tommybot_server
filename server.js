@@ -461,27 +461,27 @@ function getStarted(sender) {
       "text": "Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand!",
       "quick_replies":[
         {
-          "content_type":"text",
+          "content_type":"payload",
           "title":"directions",
           "payload":"What can you tell me about directions?"
         },
         {
-          "content_type":"text",
+          "content_type":"payload",
           "title":"hours",
           "payload":"What can you tell me about building hours?"
         },
         {
-          "content_type":"text",
+          "content_type":"payload",
           "title":"dining",
           "payload":"What can you tell me about dining hall menus?"
         },
         {
-          "content_type":"text",
+          "content_type":"payload",
           "title":"events",
           "payload":"What can you tell me about school events?"
         },
         {
-          "content_type":"text",
+          "content_type":"payload",
           "title":"What else can Tommy do?",
           "payload":"help"
         }
