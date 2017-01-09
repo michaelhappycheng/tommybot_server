@@ -347,12 +347,13 @@ function sendMenuCard(senderID, menu, mealPreferences) {
       sendTextMessage(senderID, "preferences for " + mealPreferences + " listed.");
     }
     for (var i = 0; i < menu[0].stations.length; i++) {
+        var thisStationHasItems = false;
         var text = '';
         text += menu[0].stations[i].name + ' - ';
         for (var j = 0; j < menu[0].stations[i].options.length; j++) {
           if (mealPreferences != 'none') {
-            console.log(menu[0].stations[i].options[j].tags + ' and ' + menu[0].stations[i].options[j].tags.indexOf(mealPreferences));
             if (menu[0].stations[i].options[j].tags.indexOf(capitalizeFirstLetter(mealPreferences)) != -1) {
+              thisStationHasItems = true;
               text += menu[0].stations[i].options[j].name;
               if (j != menu[0].stations[i].options.length-1) {
               text += ', ';
@@ -360,12 +361,14 @@ function sendMenuCard(senderID, menu, mealPreferences) {
             }
           }
           else {
+            thisStationHasItems = true;
             text += menu[0].stations[i].options[j].name;
             if (j != menu[0].stations[i].options.length-1) {
             text += ', ';
           }
             }
         }
+        if (thisStationHasItems == true) {
         messageData = {
                 text:text
             }
@@ -384,6 +387,7 @@ function sendMenuCard(senderID, menu, mealPreferences) {
                  console.log('Error: ', response.body.error);
             }
         })
+      }
     }
 }
 
