@@ -182,7 +182,7 @@ function apiaiCall(text, sender) {
             });
             }
             else {
-            sendTextMessage(sender, "Sorry, I couldn't understand that - can you be more specific or try your building's 3-letter code? For a full list of buildings at USC, visit http://fmsmaps4.usc.edu/usc/php/bl_list_no.php");
+            sendTextMessage(sender, "Sorry, I couldn't understand that - can you be more specific or try your building's 3-letter code? For a full list of buildings at USC visit - http://fmsmaps4.usc.edu/usc/php/bl_list_no.php");
             }
         }
         else if (response.result.action == "getAcademicEvent") {
@@ -195,7 +195,7 @@ function apiaiCall(text, sender) {
                         sendTextMessage(sender, returnedEvent[0].value + "!" );
                     }
                     else {
-                        sendTextMessage(sender, "I could not find that event! You can try rephrasing your question, or visit this site for a schedule of classes: http://classes.usc.edu/term-20171/calendar/ and this site for an overall academic schedule: http://academics.usc.edu/calendar/")
+                        sendTextMessage(sender, "I could not find that event! You can try rephrasing your question, or visit this site for a schedule of classes - http://classes.usc.edu/term-20171/calendar/ - and this site for an overall academic schedule - http://academics.usc.edu/calendar/")
                     }
                 });
                 db.close();
