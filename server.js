@@ -246,7 +246,7 @@ function apiaiCall(text, sender) {
         }
 
         else {
-            sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question?")
+            sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.")
         }
         }
     });
@@ -347,7 +347,7 @@ function sendMenuCard(senderID, menu, mealPreferences) {
         text += menu[0].stations[i].name + ': ';
         for (var j = 0; j < menu[0].stations[i].options.length; j++) {
           if (mealPreferences != 'none') {
-            console.log(menu[0].stations[i].options[j].tags);
+            console.log(menu[0].stations[i].options[j].tags + ' and ' + menu[0].stations[i].options[j].tags.indexOf(mealPreferences));
             if (menu[0].stations[i].options[j].tags.indexOf(mealPreferences) != -1) {
               text += menu[0].stations[i].options[j].name;
               if (j != menu[0].stations[i].options.length-1) {
