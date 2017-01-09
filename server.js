@@ -461,27 +461,27 @@ function getStarted(sender) {
       "text": "Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand!",
       "quick_replies":[
         {
-          "content_type":"payload",
-          "title":"directions",
+          "content_type":"text",
+          "title":"What can you tell me about directions?",
           "payload":"What can you tell me about directions?"
         },
         {
-          "content_type":"payload",
-          "title":"hours",
+          "content_type":"text",
+          "title":"What can you tell me about building hours?",
           "payload":"What can you tell me about building hours?"
         },
         {
-          "content_type":"payload",
-          "title":"dining",
+          "content_type":"text",
+          "title":"What can you tell me about dining hall menus?",
           "payload":"What can you tell me about dining hall menus?"
         },
         {
-          "content_type":"payload",
-          "title":"events",
+          "content_type":"text",
+          "title":"What can you tell me about school events?",
           "payload":"What can you tell me about school events?"
         },
         {
-          "content_type":"payload",
+          "content_type":"text",
           "title":"What else can Tommy do?",
           "payload":"help"
         }
@@ -510,38 +510,31 @@ function sendLocationQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"VKC",
-          "payload":"Where is VKC?"
+          "title":"Where is VKC?"
         },
         {
           "content_type":"text",
-          "title":"TCC",
-          "payload":"Where is TCC?"
+          "title":"Where is TCC?"
         },
         {
           "content_type":"text",
-          "title":"THH",
-          "payload":"Where is THH?"
+          "title":"Where is THH?"
         },
         {
           "content_type":"text",
-          "title":"WPH",
-          "payload":"Where is WPH?"
+          "title":"Where is WPH?"
         },
         {
           "content_type":"text",
-          "title":"RTH",
-          "payload":"Where is RTH?"
+          "title":"Where is RTH?"
         },
         {
           "content_type":"text",
-          "title":"ADM",
-          "payload":"Where is ADM?"
+          "title":"Where is ADM?"
         },
         {
           "content_type":"text",
-          "title":"SGM",
-          "payload":"Where is SGM?"
+          "title":"Where is SGM?"
         }
       ]
   }
@@ -568,28 +561,23 @@ function sendHoursQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Leavey",
-          "payload":"Leavey hours"
+          "title":"Leavey hours"
         },
         {
           "content_type":"text",
-          "title":"EVK",
-          "payload":"EVK hours"
+          "title":"EVK hours"
         },
         {
           "content_type":"text",
-          "title":"Parkside",
-          "payload":"Parkside hours"
+          "title":"Parkside hours"
         },
         {
           "content_type":"text",
-          "title":"Cafe 84",
-          "payload":"Cafe 84 hours"
+          "title":"Cafe 84 hours"
         },
         {
           "content_type":"text",
-          "title":"Doheny",
-          "payload":"Doheny hours"
+          "title":"Doheny hours"
         }
       ]
   }
@@ -616,18 +604,15 @@ function sendDiningQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"EVK",
-          "payload":"EVK menu"
+          "title":"EVK menu"
         },
         {
           "content_type":"text",
-          "title":"Parkside",
-          "payload":"Parkside menu"
+          "title":"Parkside menu"
         },
         {
           "content_type":"text",
-          "title":"Cafe 84",
-          "payload":"Cafe menu"
+          "title":"Cafe 84 menu"
         }
       ]
   }
