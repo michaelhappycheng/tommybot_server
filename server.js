@@ -523,32 +523,32 @@ function sendLocationQuickRepliesMessage(sender, text) {
         {
           "content_type":"text",
           "title":"TCC",
-          "payload":"Where is VKC?"
+          "payload":"Where is TCC?"
         },
         {
           "content_type":"text",
           "title":"THH",
-          "payload":"Where is VKC?"
+          "payload":"Where is THH?"
         },
         {
           "content_type":"text",
           "title":"WPH",
-          "payload":"Where is VKC?"
+          "payload":"Where is WPH?"
         },
         {
           "content_type":"text",
           "title":"RTH",
-          "payload":"Where is VKC?"
+          "payload":"Where is RTH?"
         },
         {
           "content_type":"text",
           "title":"ADM",
-          "payload":"Where is VKC?"
+          "payload":"Where is ADM?"
         },
         {
           "content_type":"text",
           "title":"SGM",
-          "payload":"Where is VKC?"
+          "payload":"Where is SGM?"
         }
       ]
   }
@@ -575,23 +575,28 @@ function sendHoursQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Leavey hours"
+          "title":"Leavey hours",
+          "payload":"Leavey hours"
         },
         {
           "content_type":"text",
-          "title":"EVK hours"
+          "title":"EVK hours",
+          "payload":"EVK hours"
         },
         {
           "content_type":"text",
-          "title":"Parkside hours"
+          "title":"Parkside hours",
+          "payload":"Parkside hours"
         },
         {
           "content_type":"text",
-          "title":"Cafe 84 hours"
+          "title":"Cafe 84 hours",
+          "payload":"Cafe 84 hours"
         },
         {
           "content_type":"text",
-          "title":"Doheny hours"
+          "title":"Doheny hours",
+          "payload":"Doheny hours"
         }
       ]
   }
@@ -618,15 +623,18 @@ function sendDiningQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"EVK menu"
+          "title":"EVK menu",
+          "payload":"EVK menu"
         },
         {
           "content_type":"text",
-          "title":"Parkside menu"
+          "title":"Parkside menu",
+          "payload":"Parkside menu"
         },
         {
           "content_type":"text",
-          "title":"Cafe 84 menu"
+          "title":"Cafe 84 menu",
+          "payload":"Cafe 84 menu"
         }
       ]
   }
