@@ -60,7 +60,7 @@ function apiaiCall(text, sender) {
     var request = apiaiApp.textRequest(text, {sessionId: process.env.apiaiSessionId}); //sends text request to api.ai
 
     request.on('response', function(response) {
-        console.log(response.result.fulfillment.speech); {
+        console.log(response.result.action); {
         if (response.result.fulfillment.speech != "") {
             sendTextMessage(sender, response.result.fulfillment.speech);
         }
