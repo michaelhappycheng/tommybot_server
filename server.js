@@ -258,6 +258,10 @@ function apiaiCall(text, sender) {
     request.end();
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function sendMenuChoiceCard(senderID, diningHall, menu) {
     messageData = {
     "attachment":{
@@ -348,7 +352,7 @@ function sendMenuCard(senderID, menu, mealPreferences) {
         for (var j = 0; j < menu[0].stations[i].options.length; j++) {
           if (mealPreferences != 'none') {
             console.log(menu[0].stations[i].options[j].tags + ' and ' + menu[0].stations[i].options[j].tags.indexOf(mealPreferences));
-            if (menu[0].stations[i].options[j].tags.indexOf(mealPreferences) != -1) {
+            if (menu[0].stations[i].options[j].tags.indexOf(capitalizeFirstLetter(mealPreferences)) != -1) {
               text += menu[0].stations[i].options[j].name;
               if (j != menu[0].stations[i].options.length-1) {
               text += ', ';
