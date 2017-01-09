@@ -176,13 +176,13 @@ function apiaiCall(text, sender) {
                 buildings.find({'id': response.result.parameters.building}).toArray(function(err, returnedBuilding) {
                     var hyperlinkBuildingAddress = returnedBuilding[0].address.replace(/ /g, "%20"); //reformats text for hyperlink
                     sendBuildingCard(sender, returnedBuilding[0], hyperlinkBuildingAddress);
-                    sendTextMessage(sender, "Mobile phone users: open the navigation in browser for more optimal performance.");
+                    sendTextMessage(sender, "Mobile users - open the navigation in browser for more optimal performance.");
                 });
                 db.close();
             });
             }
             else {
-            sendTextMessage(sender, "Sorry, I couldn't understand that -- can you be more specific or try your building's 3-letter code? For a full list of buildings at USC, visit http://fmsmaps4.usc.edu/usc/php/bl_list_no.php");
+            sendTextMessage(sender, "Sorry, I couldn't understand that - can you be more specific or try your building's 3-letter code? For a full list of buildings at USC, visit http://fmsmaps4.usc.edu/usc/php/bl_list_no.php");
             }
         }
         else if (response.result.action == "getAcademicEvent") {
@@ -349,7 +349,7 @@ function sendMenuCard(senderID, menu, mealPreferences) {
     for (var i = 0; i < menu[0].stations.length; i++) {
         var thisStationHasItems = false;
         var text = '';
-        text += menu[0].stations[i].name + ': ';
+        text += menu[0].stations[i].name + ' - ';
         for (var j = 0; j < menu[0].stations[i].options.length; j++) {
           if (mealPreferences != 'none') {
             if (menu[0].stations[i].options[j].tags.indexOf(capitalizeFirstLetter(mealPreferences)) != -1) {
@@ -398,7 +398,7 @@ function sendBuildingCard(senderID, building, hyperlinkText) {
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": building.id + ": " + building.name,
+                    "title": building.id + " | " + building.name,
                     "subtitle": building.address,
                     "image_url": "https://maps.googleapis.com/maps/api/staticmap?size=764x400&center=" + hyperlinkText,
                     "buttons": [{
