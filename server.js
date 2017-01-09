@@ -457,9 +457,7 @@ function sendTextMessage(sender, text) {
 }
 
 function getStarted(sender) {
-  console.log('checkpoint 2');
   messageData = {
-    "message": {
       "text": "Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand!",
       "quick_replies":[
         {
@@ -488,7 +486,6 @@ function getStarted(sender) {
           "payload":"help"
         }
       ]
-      }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -509,7 +506,6 @@ function getStarted(sender) {
 
 function sendLocationQuickRepliesMessage(sender, text) {
   messageData = {
-    "message": {
       "text": text,
       "quick_replies":[
         {
@@ -548,7 +544,6 @@ function sendLocationQuickRepliesMessage(sender, text) {
           "payload":"Where is SGM?"
         }
       ]
-      }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -569,7 +564,6 @@ function sendLocationQuickRepliesMessage(sender, text) {
 
 function sendHoursQuickRepliesMessage(sender, text) {
   messageData = {
-    "message": {
       "text": text,
       "quick_replies":[
         {
@@ -598,7 +592,6 @@ function sendHoursQuickRepliesMessage(sender, text) {
           "payload":"Doheny hours"
         }
       ]
-      }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -619,7 +612,6 @@ function sendHoursQuickRepliesMessage(sender, text) {
 
 function sendDiningQuickRepliesMessage(sender, text) {
   messageData = {
-    "message": {
       "text": text,
       "quick_replies":[
         {
@@ -638,7 +630,6 @@ function sendDiningQuickRepliesMessage(sender, text) {
           "payload":"Cafe menu"
         }
       ]
-      }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
