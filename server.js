@@ -478,11 +478,6 @@ function getStarted(sender) {
             "type":"postback",
             "title":"dining",
             "payload":"What can you tell me about dining hall menus?"
-          },
-          {
-            "type":"postback",
-            "title":"events",
-            "payload":"What can you tell me about school events?"
           }
         ]
       }
