@@ -394,7 +394,7 @@ function sendBuildingCard(senderID, building, hyperlinkText) {
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": building.id + ": " + building.name,
+                    "title": building.id + " | " + building.name,
                     "subtitle": building.address,
                     "image_url": "https://maps.googleapis.com/maps/api/staticmap?size=764x400&center=" + hyperlinkText,
                     "buttons": [{
