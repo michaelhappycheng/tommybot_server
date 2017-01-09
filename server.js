@@ -67,24 +67,8 @@ function apiaiCall(text, sender) {
         else if (response.result.action == "getMenu") {
             if (response.result.parameters.dininghall != '') {
                 if (response.result.parameters.mealtype == '') {
-                    MongoClient.connect(url, function(err, db) {
-                    assert.equal(null, err);
-                    console.log("Connected correctly to server");
-                    var dininghalls = db.collection('dininghalls');
-
-                    // roundabout way to get today's date in PST
-                    var clientDate = new Date();
-                    utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
-                    var date = new Date(utc + (3600000*-8));
-                    var datestring = ("0" + (date.getMonth() + 1).toString()).substr(-2) + "/" + ("0" + date.getDate().toString()).substr(-2)  + "/" + (date.getFullYear().toString()).substr(2);
-
                     // sends back FB card for user to select meal time
-                    dininghalls.find({'name': response.result.parameters.dininghall, 'date': datestring}).toArray(function(err, returnedMenu) {
-                        console.log(returnedMenu.length);
-                        sendMenuChoiceCard(sender, response.result.parameters.dininghall, returnedMenu);
-                        });
-                    db.close();
-                    });
+                    sendMenuChoiceCard(sender, response.result.resolvedQuery);
                 }
                 else if (response.result.parameters.mealtype == 'breakfast') {
                     MongoClient.connect(url, function(err, db) {
@@ -96,10 +80,10 @@ function apiaiCall(text, sender) {
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
                         if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
                         }
                         else {
-                          sendMenuCard(sender, returnedMenu, 'none');
+                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         }
                         });
                     db.close();
@@ -115,10 +99,10 @@ function apiaiCall(text, sender) {
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
                         if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
                         }
                         else {
-                          sendMenuCard(sender, returnedMenu, 'none');
+                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         }
                         });
                     db.close();
@@ -134,10 +118,10 @@ function apiaiCall(text, sender) {
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
                         if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
                         }
                         else {
-                          sendMenuCard(sender, returnedMenu, 'none');
+                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         }
                         });
                     db.close();
@@ -153,10 +137,10 @@ function apiaiCall(text, sender) {
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
                         if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences);
+                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
                         }
                         else {
-                          sendMenuCard(sender, returnedMenu, 'none');
+                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         }
                         });
                     db.close();
@@ -225,7 +209,6 @@ function apiaiCall(text, sender) {
                         }
                         else if (n == 3) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Wednesday are " + returnedEvent[0].Wednesday + "!" );
-
                         }
                         else if (n == 4) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Thursday are " + returnedEvent[0].Thursday + "!" );
@@ -262,7 +245,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function sendMenuChoiceCard(senderID, diningHall, menu) {
+function sendMenuChoiceCard(senderID, diningHall) {
     messageData = {
     "attachment":{
       "type":"template",
@@ -342,9 +325,13 @@ function sendMenuChoiceCard(senderID, diningHall, menu) {
     })
 }
 
-function sendMenuCard(senderID, menu, mealPreferences) {
+function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
     if (mealPreferences != 'none') {
       sendTextMessage(senderID, "preferences for " + mealPreferences + " listed.");
+    }
+    if (menu[0].stations.length == 0) {
+      sendTextMessage(senderID, "Sorry, that meal time is not available for today. Please select the proper option in the below menu.");
+      sendMenuChoiceCard(senderID, diningHall);
     }
     for (var i = 0; i < menu[0].stations.length; i++) {
         var thisStationHasItems = false;
