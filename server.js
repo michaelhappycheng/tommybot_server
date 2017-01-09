@@ -511,36 +511,44 @@ function getStarted(sender) {
 }
 
 function sendLocationQuickRepliesMessage(sender, text) {
+
   messageData = {
       "text": text,
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"VKC"
+          "title":"VKC",
+          "payload":"Where is VKC?"
         },
         {
           "content_type":"text",
-          "title":"TCC"
+          "title":"TCC",
+          "payload":"Where is VKC?"
         },
         {
           "content_type":"text",
-          "title":"THH"
+          "title":"THH",
+          "payload":"Where is VKC?"
         },
         {
           "content_type":"text",
-          "title":"WPH"
+          "title":"WPH",
+          "payload":"Where is VKC?"
         },
         {
           "content_type":"text",
-          "title":"RTH"
+          "title":"RTH",
+          "payload":"Where is VKC?"
         },
         {
           "content_type":"text",
-          "title":"ADM"
+          "title":"ADM",
+          "payload":"Where is VKC?"
         },
         {
           "content_type":"text",
-          "title":"SGM"
+          "title":"SGM",
+          "payload":"Where is VKC?"
         }
       ]
   }
