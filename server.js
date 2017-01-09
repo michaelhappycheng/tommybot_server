@@ -458,34 +458,40 @@ function sendTextMessage(sender, text) {
 
 function getStarted(sender) {
   messageData = {
-      "text": "Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand!",
-      "quick_replies":[
-        {
-          "content_type":"text",
-          "title":"What can you tell me about directions?",
-          "payload":"What can you tell me about directions?"
-        },
-        {
-          "content_type":"text",
-          "title":"What can you tell me about building hours?",
-          "payload":"What can you tell me about building hours?"
-        },
-        {
-          "content_type":"text",
-          "title":"What can you tell me about dining hall menus?",
-          "payload":"What can you tell me about dining hall menus?"
-        },
-        {
-          "content_type":"text",
-          "title":"What can you tell me about school events?",
-          "payload":"What can you tell me about school events?"
-        },
-        {
-          "content_type":"text",
-          "title":"What else can Tommy do?",
-          "payload":"help"
-        }
-      ]
+      "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand!",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"directions",
+            "payload":"What can you tell me about directions?"
+          },
+          {
+            "type":"postback",
+            "title":"hours",
+            "payload":"What can you tell me about building hours?"
+          },
+          {
+            "type":"postback",
+            "title":"dining",
+            "payload":"What can you tell me about dining hall menus?"
+          },
+          {
+            "type":"postback",
+            "title":"events",
+            "payload":"What can you tell me about school events?"
+          },
+          {
+            "type":"postback",
+            "title":"What else can Tommy do?",
+            "payload":"help"
+          }
+        ]
+      }
+    }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -510,31 +516,31 @@ function sendLocationQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Where is VKC?"
+          "title":"VKC"
         },
         {
           "content_type":"text",
-          "title":"Where is TCC?"
+          "title":"TCC"
         },
         {
           "content_type":"text",
-          "title":"Where is THH?"
+          "title":"THH"
         },
         {
           "content_type":"text",
-          "title":"Where is WPH?"
+          "title":"WPH"
         },
         {
           "content_type":"text",
-          "title":"Where is RTH?"
+          "title":"RTH"
         },
         {
           "content_type":"text",
-          "title":"Where is ADM?"
+          "title":"ADM"
         },
         {
           "content_type":"text",
-          "title":"Where is SGM?"
+          "title":"SGM"
         }
       ]
   }
