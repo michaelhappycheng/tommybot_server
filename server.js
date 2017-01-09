@@ -462,7 +462,7 @@ function getStarted(sender) {
       "type":"template",
       "payload":{
         "template_type":"button",
-        "text":"Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand!",
+        "text":"Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand! For more of my capabilities, type 'help'.",
         "buttons":[
           {
             "type":"postback",
@@ -483,11 +483,6 @@ function getStarted(sender) {
             "type":"postback",
             "title":"events",
             "payload":"What can you tell me about school events?"
-          },
-          {
-            "type":"postback",
-            "title":"What else can Tommy do?",
-            "payload":"help"
           }
         ]
       }
