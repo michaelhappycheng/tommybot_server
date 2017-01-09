@@ -65,6 +65,7 @@ function apiaiCall(text, sender) {
             sendTextMessage(sender, response.result.fulfillment.speech);
         }
         else if (response.result.action == "getStarted") {
+          console.log('checkpoint 1');
           getStarted(sender);
         }
         else if (response.result.action == "getMenu") {
@@ -456,6 +457,7 @@ function sendTextMessage(sender, text) {
 }
 
 function getStarted(sender) {
+  console.log('checkpoint 2');
   messageData = {
     "message": {
       "text": "Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand!",
