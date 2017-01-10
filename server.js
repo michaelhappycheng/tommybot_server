@@ -273,6 +273,7 @@ function apiaiCall(text, sender) {
             var d = new Date(utc + (3600000*-8)); // this way we can get PST time
             date = formatDateYY(d);
             if (response.result.parameters['date-period'] == 'tomorrow') {
+              console.log('tomorrow checkpoint');
               date = formatDateYY(d.setDate(d.getDate() + 1));
               var dates = [];
               dates.push(date);
