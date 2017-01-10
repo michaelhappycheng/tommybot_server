@@ -73,6 +73,7 @@ app.post('/webhook/', function (req, res) {
         }
     res.sendStatus(200);
 })
+//ya
 
 function apiaiCall(text, sender) {
     var request = apiaiApp.textRequest(text, {sessionId: process.env.apiaiSessionId}); //sends text request to api.ai
