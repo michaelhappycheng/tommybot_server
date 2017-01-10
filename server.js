@@ -210,7 +210,7 @@ function apiaiCall(text, sender) {
                         var othermonth = dateOther[1];
                         var otherday = dateOther[2];
 
-                        sendTextMessage(sender, "otherYear: " otheryear + ", othermonth: " + othermonth + ", otherday: " + otherday)
+                        sendTextMessage(sender, "otherYear: " + otheryear + ", othermonth: " + othermonth + ", otherday: " + otherday);
 
                         var temp = new Date(otheryear, otherday, othermonth);
 
