@@ -68,6 +68,13 @@ function apiaiCall(text, sender) {
           getStarted(sender);
         }
         else if (response.result.action == "getMenu") {
+          var clientDate = new Date();
+          utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+          var d = new Date(utc + (3600000*-8)); // this way we can get PST time
+          if (response.result.parameters['date-period'] == 'tomorrow') {
+            d = setDate(d.getDate() + 1);
+          }
+          var date = formatDate(d);
             if (response.result.parameters.dininghall != '') {
                 if (response.result.parameters.mealtype == '') {
                     // sends back FB card for user to select meal time
@@ -78,7 +85,7 @@ function apiaiCall(text, sender) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
-                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Breakfast"}).toArray(function(err, returnedMenu) {
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Breakfast", 'date' : date}).toArray(function(err, returnedMenu) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
@@ -97,7 +104,7 @@ function apiaiCall(text, sender) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
-                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Brunch"}).toArray(function(err, returnedMenu) {
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Brunch", 'date' : date}).toArray(function(err, returnedMenu) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
@@ -116,7 +123,7 @@ function apiaiCall(text, sender) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
-                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Lunch"}).toArray(function(err, returnedMenu) {
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Lunch", 'date' : date}).toArray(function(err, returnedMenu) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
@@ -135,7 +142,7 @@ function apiaiCall(text, sender) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
-                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Dinner"}).toArray(function(err, returnedMenu) {
+                    dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Dinner", 'date' : date}).toArray(function(err, returnedMenu) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
@@ -288,6 +295,18 @@ function apiaiCall(text, sender) {
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear().toString().substr(2,2);
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [month, day, year].join('/');
 }
 
 function sendMenuChoiceCard(senderID, diningHall) {
