@@ -843,14 +843,15 @@ function sendEventsCard(sender, eventStats) {
 
     eventCarousel = [];
 
-    for(int i = 0; i < eventStats.length; i++) {
+    for(var i = 0; i < eventStats.length; i++) {
         eventTitle = eventStats[i].title
         eventTitle = eventStats[i].date
         eventTitle = eventStats[i].time
         eventLocation = eventStats[i].location
         eventLink = eventStats[i].link
 
-        eventCarousel.push(eventJSON = {
+        eventCarousel.push(
+          eventJSON = {
                 "title": eventTitle,
                 "subtitle": eventDate + "\n" + eventTime + "\n" eventLocation,
                 "default_action": {
@@ -875,9 +876,7 @@ function sendEventsCard(sender, eventStats) {
           "type":"template",
           "payload":{
             "template_type":"generic",
-            "elements":[
-               eventCarousel
-            ]
+            "elements": eventCarousel
           }
         }
         }
