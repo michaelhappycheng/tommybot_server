@@ -495,6 +495,7 @@ function sendMenuChoiceCard(senderID, diningHall) {
 }
 
 function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
+  console.log(menu);
     if (menu[0].stations.length == 0) {
       sendTextMessage(senderID, "Sorry, that meal time is not available for today. Please select the proper option in the below menu.");
       sendMenuChoiceCard(senderID, diningHall);
