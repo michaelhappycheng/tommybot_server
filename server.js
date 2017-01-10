@@ -285,23 +285,23 @@ function apiaiCall(text, sender) {
         else if (response.result.action == "getEvent") {
 
             if(response.result.parameters.calendarType == 'Visions and Voices') {
-                sendEventsChoiceCard(sender, 'Visions and Voices')
+                sendEventsChoiceCard(sender, 'Visions and Voices');
             }
             else if (response.result.parameters.calendarType == 'Viterbi') {
-                sendEventsChoiceCard(sender, 'Vitberi')
+                sendEventsChoiceCard(sender, 'Viterbi');
             }
             else if (response.result.parameters.calendarType == 'Miscellaneous') {
-                sendEventsChoiceCard(sender, 'Miscellaneous')
+                sendEventsChoiceCard(sender, 'Miscellaneous');
             }
             else if (response.result.parameters.calendarType == 'Sports') {
-                sendEventsChoiceCard(sender, 'Sports')
+                sendEventsChoiceCard(sender, 'Sports');
             }
             else if (response.result.parameters.calendarType == 'Dornsife') {
-                sendEventsChoiceCard(sender, 'Dornsife')
+                sendEventsChoiceCard(sender, 'Dornsife');
             }
         }
         else {
-            sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.")
+                sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
 
             }
         }
@@ -763,7 +763,7 @@ function sendEventQuickRepliesMessage(sender, text) {
   })
 }
 
-function sendEventsChoiceCard(senderID, calendarType) {
+function sendEventsChoiceCard(senderID, calendarName) {
     messageData = {
     "attachment":{
       "type":"template",
@@ -774,18 +774,18 @@ function sendEventsChoiceCard(senderID, calendarType) {
           {
             "type":"postback",
             "title":"Today",
-            "payload": calendarType + " today"
+            "payload": calendarName + " today"
           },
           {
             "type":"postback",
             "title":"Tomorrow",
-            "payload": calendarType + " tomorrow"
+            "payload": calendarName + " tomorrow"
           },
           {
             "type":"postback",
             "title":"This Week",
-            "payload": calendarType + " week"
-          },
+            "payload": calendarName + " week"
+          }
         ]
       }
     }
