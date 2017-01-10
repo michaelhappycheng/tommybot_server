@@ -853,7 +853,7 @@ function sendEventsCard(sender, eventStats) {
         eventCarousel.push(
           eventJSON = {
                 "title": eventTitle,
-                "subtitle": eventDate + "\n" + eventTime + "\n" eventLocation,
+                "subtitle": eventDate + "\n" + eventTime + "\n" + eventLocation,
                 "default_action": {
                   "type": "web_url",
                   "url": eventLink,
