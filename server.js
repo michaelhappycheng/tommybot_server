@@ -48,10 +48,15 @@ app.post('/webhook/', function (req, res) {
               recordMessageDataAnalytics(1);
             }
         }
+        if (event.quick_reply) {
+            text = event.quick_reply.payload;
+            apiaiCall(text, sender);
+        }
         if (event.postback) {
             text = event.postback.payload;
             apiaiCall(text, sender);
         }
+        
     }
     res.sendStatus(200);
 })
@@ -681,27 +686,27 @@ function sendEventQuickRepliesMessage(sender, text) {
         {
           "content_type":"text",
           "title":"Academics",
-          "payload":"What are the academic events"
+          "payload":"ACADEMIC_EVENTS"
         },
         {
           "content_type":"text",
           "title":"Sports",
-          "payload":"What are the sports events"
+          "payload":"SPORT_EVENTS"
         },
         {
           "content_type":"text",
           "title":"Viterbi",
-          "payload":"What are the viterbi events"
+          "payload":"VITERBI_EVENTS"
         },
         {
           "content_type":"text",
           "title":"Dornsife",
-          "payload":"What are the dornsife events"
+          "payload":"DORNSIFE_EVENTS"
         },
         {
           "content_type":"text",
           "title":"Miscellaneous",
-          "payload":"What are the miscellaneous events"
+          "payload":"MISCELLANEOUS_EVENTS"
         }
       ]
   }
