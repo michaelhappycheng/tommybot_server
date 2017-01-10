@@ -282,7 +282,7 @@ function apiaiCall(text, sender) {
           }
         }
         else if (response.result.action == "getEvent") {
-          if(response.result.parameters['date-period'] != '' && response.result.parameters.calendertype != '') {
+          if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
             console.log('checkpoint 1');
             var clientDate = new Date();
             utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
@@ -298,6 +298,7 @@ function apiaiCall(text, sender) {
               }
             }
             if(response.result.parameters.calendartype == 'VandV') {
+              console.log('checkpoint 2');
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
                   console.log("Connected correctly to server");
