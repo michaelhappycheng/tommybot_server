@@ -68,13 +68,14 @@ function apiaiCall(text, sender) {
           getStarted(sender);
         }
         else if (response.result.action == "getMenu") {
+          var date = '';
           var clientDate = new Date();
           utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
           var d = new Date(utc + (3600000*-8)); // this way we can get PST time
+          date = formatDate(d);
           if (response.result.parameters['date-period'] == 'tomorrow') {
-            d = (d.setDate(d.getDate() + 1));
+            date = formatDate(d.setDate(d.getDate() + 1));
           }
-          var date = formatDate(d);
             if (response.result.parameters.dininghall != '') {
                 if (response.result.parameters.mealtype == '') {
                     // sends back FB card for user to select meal time
@@ -283,14 +284,16 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
+            var date = '';
             var clientDate = new Date();
             utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
             var d = new Date(utc + (3600000*-8)); // this way we can get PST time
+            date = formatDateYY(d);
             if (response.result.parameters['date-period'] == 'tomorrow') {
-              d = (d.setDate(d.getDate() + 1));
+              date = formatDateYY(d.setDate(d.getDate() + 1));
             }
             var dates = [];
-            dates.push(formatDateYY(d));
+            dates.push(date);
             if (response.result.parameters['date-period'] != 'today') {
               for (var i = 0; i < 6; i++) {
                 dates.push(formatDateYY(d.setDate(d.getDate() + 1)));
