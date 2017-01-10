@@ -72,7 +72,7 @@ function apiaiCall(text, sender) {
           utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
           var d = new Date(utc + (3600000*-8)); // this way we can get PST time
           if (response.result.parameters['date-period'] == 'tomorrow') {
-            d = d.setDate(d.getDate() + 1);
+            d = (d.setDate(d.getDate() + 1));
           }
           var date = formatDate(d);
             if (response.result.parameters.dininghall != '') {
@@ -287,7 +287,7 @@ function apiaiCall(text, sender) {
             utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
             var d = new Date(utc + (3600000*-8)); // this way we can get PST time
             if (response.result.parameters['date-period'] == 'tomorrow') {
-              d = d.setDate(d.getDate() + 1);
+              d = (d.setDate(d.getDate() + 1));
             }
             var dates = [];
             dates.push(formatDateYY(d));
