@@ -283,7 +283,7 @@ function apiaiCall(text, sender) {
                 dates.push(formatDateYY(d.setDate(d.getDate() + 1)));
               }
             }
-            if(response.result.parameters.calendartype == 'VandV') {
+            if (response.result.parameters.calendartype == 'VandV') {
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
                   console.log("Connected correctly to server");
@@ -343,7 +343,7 @@ function apiaiCall(text, sender) {
                 sendEventsChoiceCard(sender, 'Miscellaneous');
             }
             else if (response.result.parameters.calendartype == 'Sports') {
-                sendEventsChoiceCard(sender, 'Sports');
+                sendTextMessage(sender, "Sorry, the sport's calendar is not available yet :(");
             }
             else if (response.result.parameters.calendartype == 'Dornsife') {
                 sendEventsChoiceCard(sender, 'Dornsife');
