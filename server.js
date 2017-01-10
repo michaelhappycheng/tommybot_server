@@ -264,6 +264,7 @@ function apiaiCall(text, sender) {
           }
         }
         else if (response.result.action == "getEvent") {
+          {
           if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
             var date = '';
             var clientDate = new Date();
@@ -282,7 +283,6 @@ function apiaiCall(text, sender) {
                 dates.push(formatDateYY(d.setDate(d.getDate() + 1)));
               }
             }
-            console.log(dates);
             if(response.result.parameters.calendartype == 'VandV') {
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
@@ -352,6 +352,7 @@ function apiaiCall(text, sender) {
           else {
             sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
           }
+        }
         }
         else {
                 sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
