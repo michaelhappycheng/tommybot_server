@@ -203,9 +203,7 @@ function apiaiCall(text, sender) {
 
                     if (response.result.parameters.date != '') {
                     var dateOther = new Date(response.result.parameters.date);
-                    utc = dateOther.getTime() + (dateOther.getTimezoneOffset() * 60000);
-                    var dateOtherOther = new Date(utc + (3600000*-8));
-                    n = dateOtherOther.getDay();
+                    n = dateOther.getDay();
                     sendTextMessage(sender, "N = " + n);
                     }
 
