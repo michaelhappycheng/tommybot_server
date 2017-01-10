@@ -894,6 +894,7 @@ function sendEventsCard(sender, eventStats) {
       SendTextmessage(sender, "Sorry, there no events for that calandar for that specified section of time.");
     }
 
+    else {
     eventCarousel = [];
 
     for(var i = 0; i < eventStats.length; i++) {
@@ -948,6 +949,7 @@ function sendEventsCard(sender, eventStats) {
             console.log('Error: ', response.body.error)
         }
     })
+  }
 }
 
 function sendDots(sender) {
