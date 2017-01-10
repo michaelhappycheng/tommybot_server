@@ -202,9 +202,33 @@ function apiaiCall(text, sender) {
                     var n = d.getDay();
 
                     if (response.result.parameters['date-period'] != '') {
-                    var dateOther = new Date(response.result.parameters['date-period']);
-                    n = dateOther.getDay();
-                    sendTextMessage(sender, "N = " + n);
+
+                      var temp = response.result.parameters['date-period'].toLowerCase();
+
+                      if (temp == 'tomorrow') {
+                        n=n+1;
+                      }
+                      else if (temp == 'sunday') {
+                        n = 0;
+                      }
+                      else if (temp == 'monday') {
+                        n = 1;
+                      }
+                      else if (temp == 'tuesday') {
+                        n = 2;
+                      }
+                      else if (temp == 'wednesday') {
+                        n = 3;
+                      }
+                      else if (temp == 'thursday') {
+                        n = 4;
+                      }
+                      else if (temp == 'friday') {
+                        n = 5;
+                      }
+                      else if (temp == 'saturday') {
+                        n = 6;
+                      }
                     }
 
                     if (returnedEvent.length != 0) {
