@@ -296,6 +296,7 @@ function apiaiCall(text, sender) {
                 dates.push(formatDate(d.setDate(d.getDate() + 1)));
               }
             }
+            console.log(dates);
             if(response.result.parameters.calendartype == 'VandV') {
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
