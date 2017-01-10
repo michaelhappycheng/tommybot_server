@@ -283,7 +283,6 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
-            console.log('checkpoint 1');
             var clientDate = new Date();
             utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
             var d = new Date(utc + (3600000*-8)); // this way we can get PST time
@@ -298,7 +297,6 @@ function apiaiCall(text, sender) {
               }
             }
             if(response.result.parameters.calendartype == 'VandV') {
-              console.log('checkpoint 2');
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
                   console.log("Connected correctly to server");
@@ -310,16 +308,41 @@ function apiaiCall(text, sender) {
               });
             }
             else if (response.result.parameters.calendartype == 'Viterbi') {
-                sendEventsChoiceCard(sender, 'Viterbi');
+              MongoClient.connect(url, function(err, db) {
+                  assert.equal(null, err);
+                  console.log("Connected correctly to server");
+                  var calender = db.collection('viterbiCalendar'); //find dates for Visions and Voices
+                  calender.find({'date': { $in: dates }}).limit(10).toArray(function(err, returnedEvents) {
+                    sendEventsCard(sender, returnedEvents);
+                  });
+                  db.close();
+              });
             }
             else if (response.result.parameters.calendartype == 'Miscellaneous') {
-                sendEventsChoiceCard(sender, 'Miscellaneous');
+              MongoClient.connect(url, function(err, db) {
+                  assert.equal(null, err);
+                  console.log("Connected correctly to server");
+                  var calender = db.collection('eventsCalendar'); //find dates for Visions and Voices
+                  calender.find({'date': { $in: dates }}).limit(10).toArray(function(err, returnedEvents) {
+                    sendEventsCard(sender, returnedEvents);
+                  });
+                  db.close();
+              });
             }
             else if (response.result.parameters.calendartype == 'Sports') {
-                sendEventsChoiceCard(sender, 'Sports');
+                sendTextMessage(sender, "Sorry, the sport's calendar is not available yet :(");
+                //sendEventsChoiceCard(sender, 'Sports');
             }
             else if (response.result.parameters.calendartype == 'Dornsife') {
-                sendEventsChoiceCard(sender, 'Dornsife');
+              MongoClient.connect(url, function(err, db) {
+                  assert.equal(null, err);
+                  console.log("Connected correctly to server");
+                  var calender = db.collection('dornsifeCalendar'); //find dates for Visions and Voices
+                  calender.find({'date': { $in: dates }}).limit(10).toArray(function(err, returnedEvents) {
+                    sendEventsCard(sender, returnedEvents);
+                  });
+                  db.close();
+              });
             }
           }
           else if (response.result.parameters.calendertype != '') {
@@ -853,6 +876,10 @@ function sendEventsChoiceCard(senderID, calendarName) {
 }
 
 function sendEventsCard(sender, eventStats) {
+
+    if (eventStats.length = 0) {
+      SendTextmessage(sender, "Sorry, there no events for that calandar for that specified section of time.");
+    }
 
     eventCarousel = [];
 
