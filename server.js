@@ -271,6 +271,7 @@ function apiaiCall(text, sender) {
           }
           else if (response.result.parameters.generalCategories == 'events') {
             sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
+            sendEventQuickRepliesMessage(sender);
           }
         }
         else {
@@ -655,6 +656,60 @@ function sendDiningQuickRepliesMessage(sender, text) {
           "payload":"Cafe 84 menu"
         }
       ]
+  }
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:token},
+      method: 'POST',
+      json: {
+          recipient: {id:sender},
+          message: messageData,
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('Error sending messages: ', error);
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+      }
+  })
+}
+
+function sendEventQuickRepliesMessage(sender) {
+    messageData = {
+      "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Academic Calendar",
+            "payload":"What can you tell me about academic events?"
+          },
+          {
+            "type":"postback",
+            "title":"Sports Calendar",
+            "payload":"What can you tell me about sports events?"
+          },
+          {
+            "type":"postback",
+            "title":"Viterbi Calendar",
+            "payload":"What can you tell me about viterbi events?"
+          },
+          {
+            "type":"postback",
+            "title":"Dornsife Calendar",
+            "payload":"What can you tell me about dornsife events?"
+          },
+          {
+            "type":"postback",
+            "title":"Miscellaneous",
+            "payload":"What can you tell me about Miscellaneous events?"
+          },
+        ]
+      }
+    }
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
