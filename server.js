@@ -284,7 +284,7 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           if(response.result.parameters['date-period'] != '' && response.result.parameters.calendertype != '') {
-
+            console.log("checkpoint 1");
             if(response.result.parameters.calendartype == 'VandV') {
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
@@ -840,6 +840,7 @@ function sendEventsChoiceCard(senderID, calendarName) {
 }
 
 function sendEventsCard(sender, eventStats) {
+    console.log('checkpoint 2');
 
     eventCarousel = [];
 
