@@ -75,6 +75,7 @@ function apiaiCall(text, sender) {
             d = setDate(d.getDate() + 1);
           }
           var date = formatDate(d);
+          console.log(date);
             if (response.result.parameters.dininghall != '') {
                 if (response.result.parameters.mealtype == '') {
                     // sends back FB card for user to select meal time
