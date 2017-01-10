@@ -699,27 +699,27 @@ function sendEventQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Academics",
+          "title":"Academic Events",
           "payload":"ACADEMIC_EVENTS"
         },
         {
           "content_type":"text",
-          "title":"Sports",
+          "title":"Sports Events",
           "payload":"SPORT_EVENTS"
         },
         {
           "content_type":"text",
-          "title":"Viterbi",
+          "title":"Viterbi Events",
           "payload":"VITERBI_EVENTS"
         },
         {
           "content_type":"text",
-          "title":"Dornsife",
+          "title":"Dornsife Events",
           "payload":"DORNSIFE_EVENTS"
         },
         {
           "content_type":"text",
-          "title":"Miscellaneous",
+          "title":"Miscellaneous Events",
           "payload":"MISCELLANEOUS_EVENTS"
         }
       ]
