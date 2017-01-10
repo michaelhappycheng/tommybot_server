@@ -290,13 +290,12 @@ function apiaiCall(text, sender) {
               d = d.setDate(d.getDate() + 1);
             }
             var dates = [];
-            dates.push(formatDate(d));
+            dates.push(formatDateYY(d));
             if (response.result.parameters['date-period'] != 'today') {
               for (var i = 0; i < 5; i++) {
-                dates.push(formatDate(d.setDate(d.getDate() + 1)));
+                dates.push(formatDateYY(d.setDate(d.getDate() + 1)));
               }
             }
-            console.log(dates);
             if(response.result.parameters.calendartype == 'VandV') {
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
@@ -390,6 +389,18 @@ function formatDate(date) {
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
         year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [month, day, year].join('/');
+}
+
+function formatDateYY(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear().toString().substring(2,2);
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
