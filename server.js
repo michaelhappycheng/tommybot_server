@@ -891,7 +891,7 @@ function sendEventsChoiceCard(senderID, calendarName) {
 function sendEventsCard(sender, eventStats) {
 
     if (eventStats.length == 0) {
-      SendTextMessage(sender, "Sorry, there no events for that calandar for that specified section of time.");
+      sendTextMessage(sender, "Sorry, there no events for that calandar for that specified section of time.");
     }
 
     else {
