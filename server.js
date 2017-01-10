@@ -201,13 +201,18 @@ function apiaiCall(text, sender) {
                     var d = new Date(utc + (3600000*-8)); // this way we can get PST time
                     var n = d.getDay();
 
+                    if (response.result.parameters.date.length != 0) {
+                       var temp = response.result.parameters.date;
+                       n = temp.getDay();
+                   
+                   }
+
                     if (returnedEvent.length != 0) {
                         if (n == 0) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Sunday are " + returnedEvent[0].Sunday + "!" );
                         }
                         else if (n == 1) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Monday are " + returnedEvent[0].Monday + "!" );
-                            sendTextMessage(sender, response.result.parameters.date  + " YES");
                         }
                         else if (n == 2) {
                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Tuesday are " + returnedEvent[0].Tuesday + "!" );
