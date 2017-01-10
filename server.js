@@ -291,10 +291,12 @@ function apiaiCall(text, sender) {
             date = formatDateYY(d);
             if (response.result.parameters['date-period'] == 'tomorrow') {
               date = formatDateYY(d.setDate(d.getDate() + 1));
+              var dates = [];
+              dates.push(date);
             }
-            var dates = [];
-            dates.push(date);
             else if (response.result.parameters['date-period'] != 'today') {
+              var dates = [];
+              dates.push(date);
               for (var i = 0; i < 6; i++) {
                 dates.push(formatDateYY(d.setDate(d.getDate() + 1)));
               }
