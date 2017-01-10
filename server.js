@@ -888,7 +888,7 @@ function sendEventsCard(sender, eventStats) {
         qs: {access_token:token},
         method: 'POST',
         json: {
-            recipient: {id:senderID},
+            recipient: {id:sender},
             message: messageData,
         }
     }, function(error, response, body) {
