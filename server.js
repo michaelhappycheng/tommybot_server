@@ -859,7 +859,7 @@ function sendEventsCard(sender, eventStats) {
                   "type": "web_url",
                   "url": eventLink,
                   "messenger_extensions": false,
-                  "webview_height_ratio": "full",
+                  "webview_height_ratio": "compact",
                 },
                 "buttons":[
                   {
