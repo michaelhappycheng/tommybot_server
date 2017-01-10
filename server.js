@@ -294,7 +294,7 @@ function apiaiCall(text, sender) {
             }
             var dates = [];
             dates.push(date);
-            if (response.result.parameters['date-period'] != 'today') {
+            else if (response.result.parameters['date-period'] != 'today') {
               for (var i = 0; i < 6; i++) {
                 dates.push(formatDateYY(d.setDate(d.getDate() + 1)));
               }
