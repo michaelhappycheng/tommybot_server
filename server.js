@@ -354,9 +354,6 @@ function apiaiCall(text, sender) {
                 sendEventsChoiceCard(sender, 'Dornsife');
             }
           }
-          else if (response.result.parameters['date-period'] != "") {
-            sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
-          }
           else {
             sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
           }
