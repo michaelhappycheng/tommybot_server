@@ -44,22 +44,22 @@ app.post('/webhook/', function (req, res) {
         if (event.message && event.message.text) {
             text = event.message.text;
 
-            if (event.message.quick_reply != ) {
-            text = event.message.quick_reply.payload;
-
+            if (event.message.quick_reply) {
+                text = event.message.quick_reply.payload;
+                apiaiCall(text, sender);
             }
             else {
-                apiaiCall(text, sender);
                 sendDots(sender);
                 apiaiCall(text, sender);
                 if (sender != 306268366415607) { // ignores messages sent by Tommy
                 recordMessageDataAnalytics(1);
             }
-        } else if (event.postback) {
+        } 
+        else if (event.postback) {
             text = event.postback.payload;
             apiaiCall(text, sender);
+            }   
         }
-    }
     res.sendStatus(200);
     
     }
