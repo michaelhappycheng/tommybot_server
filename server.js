@@ -301,7 +301,7 @@ function apiaiCall(text, sender) {
                   assert.equal(null, err);
                   console.log("Connected correctly to server");
                   var calender = db.collection('visionsAndVoices'); //find dates for Visions and Voices
-                  calender.find({'date': { $in: dates }).limit(10).toArray(function(err, returnedEvents) {
+                  calender.find({'date': { $in: dates }}).limit(10).toArray(function(err, returnedEvents) {
                     sendEventsCard(sender, returnedEvents);
                   });
                   db.close();
