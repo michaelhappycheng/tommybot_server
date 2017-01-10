@@ -201,21 +201,10 @@ function apiaiCall(text, sender) {
                     var d = new Date(utc + (3600000*-8)); // this way we can get PST time
                     var n = d.getDay();
 
-                    var dateOther = response.result.parameters.date;
-
-                    if (dateOther.length != 0) {
-                        dateOther = dateOther.split("-");
-
-                        var otheryear = dateOther[0];
-                        var othermonth = dateOther[1];
-                        var otherday = dateOther[2];
-
-                        sendTextMessage(sender, "otherYear: " + otheryear + ", othermonth: " + othermonth + ", otherday: " + otherday);
-
-                        var temp = new Date(otheryear, otherday, othermonth);
-
-                        n = temp.getDay();
-                        sendTextMessage(sender, "N = " + n);
+                    if (response.result.parameters.date != '') {
+                    var dateOther = new Date(response.result.parameters.date);
+                    n = dateOther.getDay();
+                    sendTextMessage(sender, "N = " + n);
                     }
 
                     if (returnedEvent.length != 0) {
