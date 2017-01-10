@@ -280,7 +280,7 @@ function apiaiCall(text, sender) {
             // sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
             sendEventQuickRepliesMessage(sender, 'Pick from the options below for what type of event you want!');
           }
-        } 
+        }
         else if (response.result.action == "getEvent") {
 
             if(response.result.parameters.calendarType == 'Visions and Voices') {
@@ -288,7 +288,7 @@ function apiaiCall(text, sender) {
             }
             else if (response.result.parameters.calendarType == 'Viterbi') {
                 sendEventsChoiceCard(sender, 'Vitberi')
-            } 
+            }
             else if (response.result.parameters.calendarType == 'Miscellaneous') {
                 sendEventsChoiceCard(sender, 'Miscellaneous')
             }
@@ -321,7 +321,7 @@ function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
-        year = d.getFullYear().toString().substr(2,2);
+        year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
