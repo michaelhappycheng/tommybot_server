@@ -283,6 +283,7 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           if(response.result.parameters['date-period'] != '' && response.result.parameters.calendertype != '') {
+            console.log('checkpoint 1');
             var clientDate = new Date();
             utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
             var d = new Date(utc + (3600000*-8)); // this way we can get PST time
