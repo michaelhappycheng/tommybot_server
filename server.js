@@ -36,29 +36,12 @@ app.get('/webhook/', function (req, res) {
 });
 
 app.post('/webhook/', function (req, res) {
-    
     messaging_events = req.body.entry[0].messaging;
-
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i];
         sender = event.sender.id;
         if (event.message && event.message.text) {
             text = event.message.text;
-<<<<<<< HEAD
-
-            if (event.message.quick_reply) {
-                text = event.message.quick_reply.payload;
-                apiaiCall(text, sender);
-            }
-            else {
-                sendDots(sender);
-                apiaiCall(text, sender);
-                if (sender != 306268366415607) { // ignores messages sent by Tommy
-                recordMessageDataAnalytics(1);
-            }
-        } 
-        else if (event.postback) {
-=======
             sendDots(sender);
             apiaiCall(text, sender);
             if (sender != 306268366415607) { // ignores messages sent by Tommy
@@ -66,14 +49,12 @@ app.post('/webhook/', function (req, res) {
             }
         }
         if (event.postback) {
->>>>>>> 86683c36fd01adc5046481a5fd01023ca7d43da7
             text = event.postback.payload;
             apiaiCall(text, sender);
-            }   
         }
+    }
     res.sendStatus(200);
 })
-//ya
 
 function apiaiCall(text, sender) {
     var request = apiaiApp.textRequest(text, {sessionId: process.env.apiaiSessionId}); //sends text request to api.ai
