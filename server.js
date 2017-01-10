@@ -283,6 +283,10 @@ function apiaiCall(text, sender) {
           }
         }
         else if (response.result.action == "getEvent") {
+          if(response.result.parameters['date-period'] != '' && response.result.parameters.calendertype != '') {
+            sendEventsCard(sender, response.result.parameters.calendartype);
+          }
+          else if (response.result.parameters.calendertype != '') {
             if(response.result.parameters.calendartype == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
             }
@@ -298,6 +302,10 @@ function apiaiCall(text, sender) {
             else if (response.result.parameters.calendartype == 'Dornsife') {
                 sendEventsChoiceCard(sender, 'Dornsife');
             }
+          }
+          else {
+            sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
+          }
         }
         else {
                 sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
@@ -809,7 +817,7 @@ function sendEventsChoiceCard(senderID, calendarName) {
 
 function sendEventsCard() {
 
-    
+
 }
 
 function sendDots(sender) {
