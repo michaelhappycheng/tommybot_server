@@ -91,12 +91,7 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
-                        }
-                        else {
-                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
-                        }
+                        sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
                     });
@@ -110,12 +105,7 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
-                        }
-                        else {
-                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
-                        }
+                        sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
                     });
@@ -129,12 +119,7 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
-                        }
-                        else {
-                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
-                        }
+                        sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
                     });
@@ -148,12 +133,7 @@ function apiaiCall(text, sender) {
                         console.log(returnedMenu);
                         assert.equal(err, null);
                         assert.equal(1, returnedMenu.length);
-                        if (response.result.parameters.mealpreferences != '') {
-                          sendMenuCard(sender, returnedMenu, response.result.parameters.mealpreferences, response.result.parameters.dininghall);
-                        }
-                        else {
-                          sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
-                        }
+                        sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
                     });
