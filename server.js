@@ -355,10 +355,9 @@ function apiaiCall(text, sender) {
             }
           }
           else if (response.result.parameters['date-period'] != "") {
-
+            sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
           }
           else {
-            console.log('checkpoint 5');
             sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
           }
         }
