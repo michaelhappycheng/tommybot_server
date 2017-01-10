@@ -839,7 +839,7 @@ function sendEventsChoiceCard(senderID, calendarName) {
     })
 }
 
-function sendEventsCard(sender, eventStats[]) {
+function sendEventsCard(sender, eventStats) {
 
     eventCarousel = [];
 
@@ -864,8 +864,8 @@ function sendEventsCard(sender, eventStats[]) {
                     "type": "web_url",
                     "url": eventLink,
                     "title":"More Info"
-                  }        
-                ]      
+                  }
+                ]
             });
     }
 
@@ -882,7 +882,7 @@ function sendEventsCard(sender, eventStats[]) {
         }
         }
     }
-    
+
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token:token},
