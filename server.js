@@ -284,7 +284,7 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
 
-            if(response.result.parameters.calendarType == 'Visions and Voices') {
+            if(response.result.parameters.calendarType == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
             }
             else if (response.result.parameters.calendarType == 'Viterbi') {
