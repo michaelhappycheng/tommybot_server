@@ -265,7 +265,7 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           {
-          if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
+          if(response.result.parameters['date-period'] != "" && response.result.parameters.calendartype != "") {
             console.log('checkpoint 3');
             var date = '';
             var dates = [];
