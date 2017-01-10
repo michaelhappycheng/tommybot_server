@@ -271,7 +271,7 @@ function apiaiCall(text, sender) {
           }
           else if (response.result.parameters.generalCategories == 'events') {
             // sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
-            sendEventQuickRepliesMessage(sender);
+            sendEventQuickRepliesMessage(sender, 'Pick from the options below for what type of event you want!');
           }
         }
         else {
@@ -674,13 +674,13 @@ function sendDiningQuickRepliesMessage(sender, text) {
   })
 }
 
-function sendEventQuickRepliesMessage(sender) {
+function sendEventQuickRepliesMessage(sender, text) {
     messageData = {
       "attachment":{
       "type":"template",
       "payload":{
         "template_type":"button",
-        "text":"",
+        "text": text,
         "buttons":[
           {
             "type":"postback",
