@@ -858,7 +858,7 @@ function sendEventsCard(sender, eventStats) {
                 "default_action": {
                   "type": "web_url",
                   "url": eventLink,
-                  "messenger_extensions": true,
+                  "messenger_extensions": false,
                   "webview_height_ratio": "tall",
                 },
                 "buttons":[
