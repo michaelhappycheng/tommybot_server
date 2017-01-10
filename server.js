@@ -265,8 +265,8 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           {
-          console.log(response.result);
           if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
+            console.log('checkpoint 3');
             var date = '';
             var clientDate = new Date();
             utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
@@ -334,6 +334,7 @@ function apiaiCall(text, sender) {
             }
           }
           else if (response.result.parameters.calendertype != "") {
+            console.log('checkpoint 4');
             if(response.result.parameters.calendartype == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
             }
