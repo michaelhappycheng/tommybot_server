@@ -333,7 +333,7 @@ function apiaiCall(text, sender) {
               });
             }
           }
-          else if (response.result.parameters.calendertype != '') {
+          else if (response.result.parameters.calendertype != "") {
             if(response.result.parameters.calendartype == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
             }
@@ -351,6 +351,7 @@ function apiaiCall(text, sender) {
             }
           }
           else {
+            console.log('checkpoint 5');
             sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
           }
         }
