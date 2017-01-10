@@ -202,9 +202,9 @@ function apiaiCall(text, sender) {
                     var n = d.getDay();
 
                     if (returnedEvent.length != 0) {
-
-                        var temp = response.result.parameters.date;
-                        n = temp.getDay();
+                        
+                        // var temp = response.result.parameters.date;
+                        // n = temp.getDay();
 
                         if (n == 0) {
                             sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Sunday are " + returnedEvent[0].Sunday + "!" );
