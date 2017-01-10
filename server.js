@@ -699,13 +699,8 @@ function sendEventQuickRepliesMessage(sender, text) {
       "quick_replies":[
         {
           "content_type":"text",
-          "title":"Academic Events",
-          "payload":"ACADEMIC_EVENTS"
-        },
-        {
-          "content_type":"text",
-          "title":"Sports Events",
-          "payload":"SPORT_EVENTS"
+          "title":"Visions & Voices Events",
+          "payload":"V&V_EVENTS"
         },
         {
           "content_type":"text",
@@ -716,6 +711,11 @@ function sendEventQuickRepliesMessage(sender, text) {
           "content_type":"text",
           "title":"Dornsife Events",
           "payload":"DORNSIFE_EVENTS"
+        },
+        {
+          "content_type":"text",
+          "title":"Sports Events",
+          "payload":"SPORT_EVENTS"
         },
         {
           "content_type":"text",
