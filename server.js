@@ -270,7 +270,7 @@ function apiaiCall(text, sender) {
             sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
           }
           else if (response.result.parameters.generalCategories == 'events') {
-            sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
+            // sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
             sendEventQuickRepliesMessage(sender);
           }
         }
