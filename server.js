@@ -284,7 +284,30 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           if(response.result.parameters['date-period'] != '' && response.result.parameters.calendertype != '') {
-            sendEventsCard(sender, response.result.parameters.calendartype);
+
+            if(response.result.parameters.calendartype == 'VandV') {
+              MongoClient.connect(url, function(err, db) {
+                  assert.equal(null, err);
+                  console.log("Connected correctly to server");
+                  var calender = db.collection('visionsAndVoices'); //find dates for Visions and Voices
+                  calender.find({}).limit(10).toArray(function(err, returnedEvents) {
+                    sendEventsCard(sender, returnedEvents);
+                  });
+                  db.close();
+              });
+            }
+            else if (response.result.parameters.calendartype == 'Viterbi') {
+                sendEventsChoiceCard(sender, 'Viterbi');
+            }
+            else if (response.result.parameters.calendartype == 'Miscellaneous') {
+                sendEventsChoiceCard(sender, 'Miscellaneous');
+            }
+            else if (response.result.parameters.calendartype == 'Sports') {
+                sendEventsChoiceCard(sender, 'Sports');
+            }
+            else if (response.result.parameters.calendartype == 'Dornsife') {
+                sendEventsChoiceCard(sender, 'Dornsife');
+            }
           }
           else if (response.result.parameters.calendertype != '') {
             if(response.result.parameters.calendartype == 'VandV') {
