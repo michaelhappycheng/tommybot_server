@@ -676,40 +676,34 @@ function sendDiningQuickRepliesMessage(sender, text) {
 
 function sendEventQuickRepliesMessage(sender, text) {
     messageData = {
-      "attachment":{
-      "type":"template",
-      "payload":{
-        "template_type":"button",
-        "text": text,
-        "buttons":[
-          {
-            "type":"postback",
-            "title":"Academic Calendar",
-            "payload":"What can you tell me about academic events?"
-          },
-          {
-            "type":"postback",
-            "title":"Sports Calendar",
-            "payload":"What can you tell me about sports events?"
-          },
-          {
-            "type":"postback",
-            "title":"Viterbi Calendar",
-            "payload":"What can you tell me about viterbi events?"
-          },
-          {
-            "type":"postback",
-            "title":"Dornsife Calendar",
-            "payload":"What can you tell me about dornsife events?"
-          },
-          {
-            "type":"postback",
-            "title":"Miscellaneous",
-            "payload":"What can you tell me about Miscellaneous events?"
-          },
-        ]
-      }
-    }
+      "text": text,
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Academics",
+          "payload":"What are the academic events"
+        },
+        {
+          "content_type":"text",
+          "title":"Sports",
+          "payload":"What are the sports events"
+        },
+        {
+          "content_type":"text",
+          "title":"Viterbi",
+          "payload":"What are the viterbi events"
+        },
+        {
+          "content_type":"text",
+          "title":"Dornsife",
+          "payload":"What are the dornsife events"
+        },
+        {
+          "content_type":"text",
+          "title":"Miscellaneous",
+          "payload":"What are the miscellaneous events"
+        }
+      ]
   }
   request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
