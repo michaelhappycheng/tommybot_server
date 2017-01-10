@@ -75,6 +75,7 @@ function apiaiCall(text, sender) {
             d = setDate(d.getDate() + 1);
           }
           var date = formatDate(d);
+          console.log(date);
             if (response.result.parameters.dininghall != '') {
                 if (response.result.parameters.mealtype == '') {
                     // sends back FB card for user to select meal time
@@ -158,7 +159,7 @@ function apiaiCall(text, sender) {
                 }
             }
             else {
-                sendTextMessage(sender, "Can you rewrite the question with a specified dining hall? It's easier to send a message with a more concise question! You can pick from EVK, Parkside, and Cafe 84.");
+                sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
             }
         }
         else if (response.result.action == "getLocation") {
@@ -410,12 +411,13 @@ function sendMenuChoiceCard(senderID, diningHall) {
 }
 
 function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
-    if (mealPreferences != 'none') {
-      sendTextMessage(senderID, "preferences for " + mealPreferences + " listed.");
-    }
     if (menu[0].stations.length == 0) {
       sendTextMessage(senderID, "Sorry, that meal time is not available for today. Please select the proper option in the below menu.");
       sendMenuChoiceCard(senderID, diningHall);
+    }
+    else {
+    if (mealPreferences != 'none') {
+      sendTextMessage(senderID, "preferences for " + mealPreferences + " listed.");
     }
     for (var i = 0; i < menu[0].stations.length; i++) {
         var thisStationHasItems = false;
@@ -460,6 +462,7 @@ function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
         })
       }
     }
+  }
 }
 
 function sendBuildingCard(senderID, building, hyperlinkText) {
