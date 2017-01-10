@@ -481,17 +481,17 @@ function getStarted(sender) {
         "buttons":[
           {
             "type":"postback",
-            "title":"directions",
+            "title":"Directions",
             "payload":"What can you tell me about directions?"
           },
           {
             "type":"postback",
-            "title":"hours",
+            "title":"Hours",
             "payload":"What can you tell me about building hours?"
           },
           {
             "type":"postback",
-            "title":"dining",
+            "title":"Dining",
             "payload":"What can you tell me about dining hall menus?"
           }
         ]
