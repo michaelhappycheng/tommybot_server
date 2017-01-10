@@ -60,12 +60,11 @@ function apiaiCall(text, sender) {
     var request = apiaiApp.textRequest(text, {sessionId: process.env.apiaiSessionId}); //sends text request to api.ai
 
     request.on('response', function(response) {
-        console.log(response.result.action); {
+        {
         if (response.result.fulfillment.speech != "") {
             sendTextMessage(sender, response.result.fulfillment.speech);
         }
         else if (response.result.action == "getStarted") {
-          console.log('checkpoint 1');
           getStarted(sender);
         }
         else if (response.result.action == "getMenu") {
@@ -202,9 +201,7 @@ function apiaiCall(text, sender) {
                     var n = d.getDay();
 
                     if (response.result.parameters['date-period'] != '') {
-
                       var temp = response.result.parameters['date-period'].toLowerCase();
-
                       if (temp == 'tomorrow') {
                         n=n+1;
                       }
