@@ -201,8 +201,8 @@ function apiaiCall(text, sender) {
                     var d = new Date(utc + (3600000*-8)); // this way we can get PST time
                     var n = d.getDay();
 
-                    if (response.result.parameters.date-period != '') {
-                    var dateOther = new Date(response.result.parameters.date-period);
+                    if (response.result.parameters['date-period'] != '') {
+                    var dateOther = new Date(response.result.parameters['date-period']);
                     n = dateOther.getDay();
                     sendTextMessage(sender, "N = " + n);
                     }
