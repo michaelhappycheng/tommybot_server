@@ -204,15 +204,18 @@ function apiaiCall(text, sender) {
                     var dateOther = response.result.parameters.date;
 
                     if (dateOther.length != 0) {
-                        dateOther = dateOther.split("-")
+                        dateOther = dateOther.split("-");
 
-                        var otheryear = dateOther[0]
-                        var othermonth = dateOther[1]
-                        var otherday = dateOther[2]
+                        var otheryear = dateOther[0];
+                        var othermonth = dateOther[1];
+                        var otherday = dateOther[2];
+
+                        sendTextMessage(sender, "otherYear: " otheryear + ", othermonth: " + othermonth + ", otherday: " + otherday)
 
                         var temp = new Date(otheryear, otherday, othermonth);
 
                         n = temp.getDay();
+                        sendTextMessage(sender, "N = " + n);
                     }
 
                     if (returnedEvent.length != 0) {
