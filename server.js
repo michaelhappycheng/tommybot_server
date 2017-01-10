@@ -352,6 +352,9 @@ function apiaiCall(text, sender) {
                 sendEventsChoiceCard(sender, 'Dornsife');
             }
           }
+          else if (response.result.parameters['date-period'] != "") {
+
+          }
           else {
             console.log('checkpoint 5');
             sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
@@ -836,6 +839,7 @@ function sendEventQuickRepliesMessage(sender, text) {
 }
 
 function sendEventsChoiceCard(senderID, calendarName) {
+  console.log('eventschoice!!! BUG' + calendarName);
     messageData = {
     "attachment":{
       "type":"template",
