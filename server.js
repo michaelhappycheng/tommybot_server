@@ -75,7 +75,6 @@ function apiaiCall(text, sender) {
             d = d.setDate(d.getDate() + 1);
           }
           var date = formatDate(d);
-          console.log(date);
             if (response.result.parameters.dininghall != '') {
                 if (response.result.parameters.mealtype == '') {
                     // sends back FB card for user to select meal time
@@ -284,13 +283,25 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           if(response.result.parameters['date-period'] != '' && response.result.parameters.calendertype != '') {
-            console.log("checkpoint 1");
+            var clientDate = new Date();
+            utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+            var d = new Date(utc + (3600000*-8)); // this way we can get PST time
+            if (response.result.parameters['date-period'] == 'tomorrow') {
+              d = d.setDate(d.getDate() + 1);
+            }
+            var dates = [];
+            dates.push(formatDate(d));
+            if (response.result.parameters['date-period'] != 'today') {
+              for (var i = 0; i < 5; i++) {
+                dates.push(formatDate(d.setDate(d.getDate() + 1)));
+              }
+            }
             if(response.result.parameters.calendartype == 'VandV') {
               MongoClient.connect(url, function(err, db) {
                   assert.equal(null, err);
                   console.log("Connected correctly to server");
                   var calender = db.collection('visionsAndVoices'); //find dates for Visions and Voices
-                  calender.find({}).limit(10).toArray(function(err, returnedEvents) {
+                  calender.find({'date': { $in: dates }).limit(10).toArray(function(err, returnedEvents) {
                     sendEventsCard(sender, returnedEvents);
                   });
                   db.close();
@@ -840,7 +851,6 @@ function sendEventsChoiceCard(senderID, calendarName) {
 }
 
 function sendEventsCard(sender, eventStats) {
-    console.log('checkpoint 2');
 
     eventCarousel = [];
 
