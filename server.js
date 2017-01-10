@@ -872,14 +872,12 @@ function sendEventsCard(sender, eventStats) {
     }
 
     messageData = {
-        "message":{
         "attachment":{
           "type":"template",
           "payload":{
             "template_type":"generic",
             "elements": eventCarousel
           }
-        }
         }
     }
 
