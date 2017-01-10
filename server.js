@@ -283,7 +283,6 @@ function apiaiCall(text, sender) {
           }
         }
         else if (response.result.action == "getEvent") {
-            console.log("checkpoint1");
             if(response.result.parameters.calendartype == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
             }
@@ -764,7 +763,6 @@ function sendEventQuickRepliesMessage(sender, text) {
 }
 
 function sendEventsChoiceCard(senderID, calendarName) {
-    console.log("checkpoint2");
     messageData = {
     "attachment":{
       "type":"template",
@@ -807,7 +805,11 @@ function sendEventsChoiceCard(senderID, calendarName) {
             console.log('Error: ', response.body.error)
         }
     })
+}
 
+function sendEventsCard() {
+
+    
 }
 
 function sendDots(sender) {
