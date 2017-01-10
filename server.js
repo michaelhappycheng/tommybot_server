@@ -40,20 +40,29 @@ app.post('/webhook/', function (req, res) {
     for (i = 0; i < messaging_events.length; i++) {
         event = req.body.entry[0].messaging[i];
         sender = event.sender.id;
+
         if (event.message && event.message.text) {
             text = event.message.text;
-            sendDots(sender);
-            apiaiCall(text, sender);
-            if (sender != 306268366415607) { // ignores messages sent by Tommy
-              recordMessageDataAnalytics(1);
+
+            if (event.message.quick_reply != ) {
+            text = event.message.quick_reply.payload;
+
             }
-        }
-        if (event.postback) {
+            else {
+                apiaiCall(text, sender);
+                sendDots(sender);
+                apiaiCall(text, sender);
+                if (sender != 306268366415607) { // ignores messages sent by Tommy
+                recordMessageDataAnalytics(1);
+            }
+        } else if (event.postback) {
             text = event.postback.payload;
             apiaiCall(text, sender);
         }
     }
     res.sendStatus(200);
+    
+    }
 })
 
 function apiaiCall(text, sender) {
@@ -277,7 +286,8 @@ function apiaiCall(text, sender) {
             sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
           }
           else if (response.result.parameters.generalCategories == 'events') {
-            sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
+            // sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
+            sendEventQuickRepliesMessage(sender, 'Pick from the options below for what type of event you want!');
           }
         }
         else {
@@ -672,6 +682,54 @@ function sendDiningQuickRepliesMessage(sender, text) {
           "content_type":"text",
           "title":"Cafe 84 menu",
           "payload":"Cafe 84 menu"
+        }
+      ]
+  }
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:token},
+      method: 'POST',
+      json: {
+          recipient: {id:sender},
+          message: messageData,
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('Error sending messages: ', error);
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+      }
+  })
+}
+
+function sendEventQuickRepliesMessage(sender, text) {
+    messageData = {
+      "text": text,
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"Academics",
+          "payload":"ACADEMIC_EVENTS"
+        },
+        {
+          "content_type":"text",
+          "title":"Sports",
+          "payload":"SPORT_EVENTS"
+        },
+        {
+          "content_type":"text",
+          "title":"Viterbi",
+          "payload":"VITERBI_EVENTS"
+        },
+        {
+          "content_type":"text",
+          "title":"Dornsife",
+          "payload":"DORNSIFE_EVENTS"
+        },
+        {
+          "content_type":"text",
+          "title":"Miscellaneous",
+          "payload":"MISCELLANEOUS_EVENTS"
         }
       ]
   }
