@@ -333,7 +333,7 @@ function apiaiCall(text, sender) {
               });
             }
           }
-          else if (response.result.parameters.calendertype != "") {
+          else if (response.result.parameters.calendartype != "") {
             console.log('checkpoint 4');
             if(response.result.parameters.calendartype == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
