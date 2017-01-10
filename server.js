@@ -846,8 +846,8 @@ function sendEventsCard(sender, eventStats) {
 
     for(var i = 0; i < eventStats.length; i++) {
         eventTitle = eventStats[i].title
-        eventTitle = eventStats[i].date
-        eventTitle = eventStats[i].time
+        eventDate = eventStats[i].date
+        eventTime = eventStats[i].time
         eventLocation = eventStats[i].location
         eventLink = eventStats[i].link
 
