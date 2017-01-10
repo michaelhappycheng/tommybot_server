@@ -201,40 +201,30 @@ function apiaiCall(text, sender) {
                     var d = new Date(utc + (3600000*-8)); // this way we can get PST time
                     var n = d.getDay();
 
-                    if (response.result.parameters.date.length != 0) {
-                       var temp = response.result.parameters.date;
-                       var nextDate = temp.toLowerCase();
-                       if (nextDate == "tomorrow") {
-                           if (n < 6) {
-                               n = n + 1;
-                           }
-                           else {
-                               n = 0;
-                           }
-                       }
-                       else if (nextDate == "monday") {
-                           n = 1;
-                       }
-                       else if (nextDate == "tuesday") {
-                           n = 2;
-                       }
-                       else if (nextDate == "wednesday") {
-                           n = 3;
-                       }
-                       else if (nextDate == "thursday") {
-                           n = 4;
-                       }
-                       else if (nextDate == "friday") {
-                           n = 5;
-                       }
-                       else if (nextDate == "saturday") {
-                           n = 6;
-                       }
-                       else if (nextDate == "sunday") {
-                           n = 0;
-                       }
-                       
-                   }
+                    if (returnedEvent.length != 0) {
+                        if (n == 0) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Sunday are " + returnedEvent[0].Sunday + "!" );
+                        }
+                        else if (n == 1) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Monday are " + returnedEvent[0].Monday + "!" );
+                            sendTextMessage(sender, response.result.parameters.date  + " YES");
+                        }
+                        else if (n == 2) {
+                           sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Tuesday are " + returnedEvent[0].Tuesday + "!" );
+                        }
+                        else if (n == 3) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Wednesday are " + returnedEvent[0].Wednesday + "!" );
+                        }
+                        else if (n == 4) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Thursday are " + returnedEvent[0].Thursday + "!" );
+                        }
+                        else if (n == 5) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Friday are " + returnedEvent[0].Friday + "!" );
+                        }
+                        else if (n == 6) {
+                            sendTextMessage(sender, response.result.parameters.buildingHours + "'s hours Saturday are " + returnedEvent[0].Saturday + "!" );
+                        }
+                    }
                     else {
                         sendTextMessage(sender, "Hmm, I don't have the hours of that building, could you try rewriting the building please?");
                     }
