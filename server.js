@@ -284,19 +284,19 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
             console.log("checkpoint1");
-            if(response.result.parameters.calendarType == 'VandV') {
+            if(response.result.parameters.calendartype == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
             }
-            else if (response.result.parameters.calendarType == 'Viterbi') {
+            else if (response.result.parameters.calendartype == 'Viterbi') {
                 sendEventsChoiceCard(sender, 'Viterbi');
             }
-            else if (response.result.parameters.calendarType == 'Miscellaneous') {
+            else if (response.result.parameters.calendartype == 'Miscellaneous') {
                 sendEventsChoiceCard(sender, 'Miscellaneous');
             }
-            else if (response.result.parameters.calendarType == 'Sports') {
+            else if (response.result.parameters.calendartype == 'Sports') {
                 sendEventsChoiceCard(sender, 'Sports');
             }
-            else if (response.result.parameters.calendarType == 'Dornsife') {
+            else if (response.result.parameters.calendartype == 'Dornsife') {
                 sendEventsChoiceCard(sender, 'Dornsife');
             }
         }
