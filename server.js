@@ -450,6 +450,7 @@ function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
       sendTextMessage(senderID, "preferences for " + mealPreferences + " listed.");
     }
     for (var i = 0; i < menu[0].stations.length; i++) {
+
         var thisStationHasItems = false;
         var text = '';
         text += menu[0].stations[i].name + ' - ';
@@ -838,9 +839,65 @@ function sendEventsChoiceCard(senderID, calendarName) {
     })
 }
 
-function sendEventsCard() {
+function sendEventsCard(sender, eventStats[]) {
 
+    eventCarousel = [];
 
+    for(int i = 0; i < eventStats.length; i++) {
+        eventTitle = eventStats[i].title
+        eventTitle = eventStats[i].date
+        eventTitle = eventStats[i].time
+        eventLocation = eventStats[i].location
+        eventLink = eventStats[i].link
+
+        eventCarousel.push(eventJSON = {
+                "title": eventTitle,
+                "subtitle": eventDate + "\n" + eventTime + "\n" eventLocation,
+                "default_action": {
+                  "type": "web_url",
+                  "url": eventLink,
+                  "messenger_extensions": true,
+                  "webview_height_ratio": "tall",
+                },
+                "buttons":[
+                  {
+                    "type": "web_url",
+                    "url": eventLink,
+                    "title":"More Info"
+                  }        
+                ]      
+            });
+    }
+
+    messageData = {
+        "message":{
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"generic",
+            "elements":[
+               eventCarousel
+            ]
+          }
+        }
+        }
+    }
+    
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:senderID},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
 }
 
 function sendDots(sender) {
