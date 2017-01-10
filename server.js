@@ -61,6 +61,8 @@ app.post('/webhook/', function (req, res) {
         }
     }
     res.sendStatus(200);
+    
+    }
 })
 
 function apiaiCall(text, sender) {
