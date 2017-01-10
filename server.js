@@ -68,6 +68,7 @@ function apiaiCall(text, sender) {
           getStarted(sender);
         }
         else if (response.result.action == "getMenu") {
+          console.log(response.result);
           var date = '';
           var clientDate = new Date();
           utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
