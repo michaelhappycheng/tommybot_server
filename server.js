@@ -599,7 +599,7 @@ function getStarted(sender) {
       "type":"template",
       "payload":{
         "template_type":"button",
-        "text":"Welcome! Below are a few ways you can use my chatbot services. Feel free to use this menu and type freehand! For more of my capabilities, type 'help'.",
+        "text":"Welcome! Below are a few of my chatbot services. Feel free to use this menu or type freehand. For more of my capabilities, click the menu on the bottom left!",
         "buttons":[
           {
             "type":"postback",
