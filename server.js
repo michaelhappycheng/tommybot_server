@@ -280,10 +280,29 @@ function apiaiCall(text, sender) {
             // sendTextMessage(sender, "Sorry, the events functionality is currently not ready due to a recently found major bug. We are working on it!");
             sendEventQuickRepliesMessage(sender, 'Pick from the options below for what type of event you want!');
           }
+        } 
+        else if (response.result.action == "getEvent") {
+
+            if(response.result.parameters.calendarType == 'Visions and Voices') {
+                sendEventsChoiceCard(sender, 'Visions and Voices')
+            }
+            else if (response.result.parameters.calendarType == 'Viterbi') {
+                sendEventsChoiceCard(sender, 'Vitberi')
+            } 
+            else if (response.result.parameters.calendarType == 'Miscellaneous') {
+                sendEventsChoiceCard(sender, 'Miscellaneous')
+            }
+            else if (response.result.parameters.calendarType == 'Sports') {
+                sendEventsChoiceCard(sender, 'Sports')
+            }
+            else if (response.result.parameters.calendarType == 'Dornsife') {
+                sendEventsChoiceCard(sender, 'Dornsife')
+            }
         }
         else {
             sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.")
-        }
+
+            }
         }
     });
 
@@ -741,6 +760,52 @@ function sendEventQuickRepliesMessage(sender, text) {
           console.log('Error: ', response.body.error);
       }
   })
+}
+
+function sendEventsChoiceCard(senderID, calendarType) {
+    messageData = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"What period of events?",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"Today",
+            "payload": calendarType + " today"
+          },
+          {
+            "type":"postback",
+            "title":"Tomorrow",
+            "payload": calendarType + " tomorrow"
+          },
+          {
+            "type":"postback",
+            "title":"This Week",
+            "payload": calendarType + " week"
+          },
+        ]
+      }
+    }
+  }
+
+  request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:senderID},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+
 }
 
 function sendDots(sender) {
