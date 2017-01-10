@@ -268,6 +268,7 @@ function apiaiCall(text, sender) {
           if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
             console.log('checkpoint 3');
             var date = '';
+            var dates = [];
             var clientDate = new Date();
             utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
             var d = new Date(utc + (3600000*-8)); // this way we can get PST time
@@ -278,11 +279,9 @@ function apiaiCall(text, sender) {
             else if (response.result.parameters['date-period'] == 'tomorrow') {
               console.log('tomorrow checkpoint');
               date = formatDateYY(d.setDate(d.getDate() + 1));
-              var dates = [];
               dates.push(date);
             }
             else if (response.result.parameters['date-period'] != 'today') {
-              var dates = [];
               dates.push(date);
               for (var i = 0; i < 6; i++) {
                 dates.push(formatDateYY(d.setDate(d.getDate() + 1)));
