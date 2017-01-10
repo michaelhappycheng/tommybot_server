@@ -265,6 +265,7 @@ function apiaiCall(text, sender) {
         }
         else if (response.result.action == "getEvent") {
           {
+          console.log(response.result);
           if(response.result.parameters['date-period'] != "" && response.result.parameters.calendertype != "") {
             var date = '';
             var clientDate = new Date();
