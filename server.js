@@ -118,6 +118,7 @@ function apiaiCall(text, sender) {
                     MongoClient.connect(url, function(err, db) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
+                    console.log(response.result.parameters.dininghall + ' and ' + date);
                     var dininghalls = db.collection('dininghalls'); //finding building
                     dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Dinner", 'date' : date}).toArray(function(err, returnedMenu) {
                         sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
