@@ -68,7 +68,6 @@ function apiaiCall(text, sender) {
           getStarted(sender);
         }
         else if (response.result.action == "getMenu") {
-          console.log(response.result);
           var date = '';
           var clientDate = new Date();
           utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
@@ -88,9 +87,6 @@ function apiaiCall(text, sender) {
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
                     dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Breakfast", 'date' : date}).toArray(function(err, returnedMenu) {
-                        console.log(returnedMenu);
-                        assert.equal(err, null);
-                        assert.equal(1, returnedMenu.length);
                         sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
@@ -102,9 +98,6 @@ function apiaiCall(text, sender) {
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
                     dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Brunch", 'date' : date}).toArray(function(err, returnedMenu) {
-                        console.log(returnedMenu);
-                        assert.equal(err, null);
-                        assert.equal(1, returnedMenu.length);
                         sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
@@ -116,9 +109,6 @@ function apiaiCall(text, sender) {
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
                     dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Lunch", 'date' : date}).toArray(function(err, returnedMenu) {
-                        console.log(returnedMenu);
-                        assert.equal(err, null);
-                        assert.equal(1, returnedMenu.length);
                         sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
@@ -130,9 +120,6 @@ function apiaiCall(text, sender) {
                     console.log("Connected correctly to server");
                     var dininghalls = db.collection('dininghalls'); //finding building
                     dininghalls.find({'name': response.result.parameters.dininghall, 'mealtype': "Dinner", 'date' : date}).toArray(function(err, returnedMenu) {
-                        console.log(returnedMenu);
-                        assert.equal(err, null);
-                        assert.equal(1, returnedMenu.length);
                         sendMenuCard(sender, returnedMenu, 'none', response.result.parameters.dininghall);
                         });
                     db.close();
@@ -337,7 +324,6 @@ function apiaiCall(text, sender) {
             }
           }
           else if (response.result.parameters.calendartype != "") {
-            console.log('checkpoint 4');
             if(response.result.parameters.calendartype == 'VandV') {
                 sendEventsChoiceCard(sender, 'Visions and Voices');
             }
