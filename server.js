@@ -346,6 +346,27 @@ function apiaiCall(text, sender) {
           }
         }
         }
+        else if (response.result.action == "getDailyTrojan") {
+
+           MongoClient.connect(url, function(err, db) {
+                assert.equal(null, err);
+                console.log("Connected correctly to server");
+
+                var dailyTrojanHeadlines;
+
+                if(response.result.parameters.dailyTrojan == 'lifestyle' || response.result.parameters.dailyTrojan == 'opinion') {
+                  dailyTrojanHeadlines = db.collection('DailyTrojanLO'); // find stored building hours
+                } else if (response.result.parameters.dailyTrojan == 'news' || response.result.parameters.dailyTrojan == 'sports') {
+                  dailyTrojanHeadlines += db.collection('DailyTrojanNS');
+                } else {
+                  sendTextMessage(sender, "Error Message");
+                }
+
+                dailyTrojanHeadlines.find({'category': response.result.parameters.dailyTrojan}).limit(10).toArray(function(err, returnedEvent) {
+
+                    sendHeadlinesCard(sender, returnedEvent);
+                }
+        }
         else {
                 sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
 
@@ -889,6 +910,68 @@ function sendEventsCard(sender, eventStats) {
           eventJSON = {
                 "title": eventTitle,
                 "subtitle": eventDate + "\n" + eventTime + "\n" + eventLocation,
+                "default_action": {
+                  "type": "web_url",
+                  "url": eventLink,
+                  "messenger_extensions": false,
+                  "webview_height_ratio": "compact",
+                },
+                "buttons":[
+                  {
+                    "type": "web_url",
+                    "url": eventLink,
+                    "title":"More Info"
+                  }
+                ]
+            });
+    }
+
+    messageData = {
+        "attachment":{
+          "type":"template",
+          "payload":{
+            "template_type":"generic",
+            "elements": eventCarousel
+          }
+        }
+    }
+
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+  }
+}
+
+function sendHeadlinesCard(sender, eventStats) {
+
+    if (!eventStats || eventStats.length == 0) {
+      sendTextMessage(sender, "Sorry, there no events for that calandar for that specified section of time.");
+    }
+
+    else {
+    eventCarousel = [];
+
+    for(var i = 0; i < eventStats.length; i++) {
+        eventTitle = eventStats[i].title
+        eventDate = eventStats[i].date
+        eventLink = eventStats[i].link
+
+        eventCarousel.push(
+          eventJSON = {
+                "title": eventTitle,
+                "subtitle": eventDate,
                 "default_action": {
                   "type": "web_url",
                   "url": eventLink,
