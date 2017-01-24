@@ -365,7 +365,8 @@ function apiaiCall(text, sender) {
                 dailyTrojanHeadlines.find({'category': response.result.parameters.dailyTrojan}).limit(10).toArray(function(err, returnedEvent) {
 
                     sendHeadlinesCard(sender, returnedEvent);
-                })
+                });
+                db.close();
         }
         else {
                 sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
