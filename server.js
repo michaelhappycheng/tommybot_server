@@ -367,6 +367,7 @@ function apiaiCall(text, sender) {
                     sendHeadlinesCard(sender, returnedEvent);
                 });
                 db.close();
+          }
         }
         else {
                 sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
