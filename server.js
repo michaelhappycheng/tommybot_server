@@ -367,7 +367,8 @@ function apiaiCall(text, sender) {
                 });
                 db.close();
                 } else {
-                  sendTextMessage(sender, "Error Message");
+
+                  sendDTQuickRepliesMessage(sender, 'Pick the type of headline you want!');
                 }
 
                 
@@ -830,6 +831,50 @@ function sendEventQuickRepliesMessage(sender, text) {
           "content_type":"text",
           "title":"Miscellaneous Events",
           "payload":"MISCELLANEOUS_EVENTS"
+        }
+      ]
+  }
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:token},
+      method: 'POST',
+      json: {
+          recipient: {id:sender},
+          message: messageData,
+      }
+  }, function(error, response, body) {
+      if (error) {
+          console.log('Error sending messages: ', error);
+      } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+      }
+  })
+}
+
+function sendDTQuickRepliesMessage(sender, text) {
+
+  messageData = {
+      "text": text,
+      "quick_replies":[
+        {
+          "content_type":"text",
+          "title":"News",
+          "payload":"DT News"
+        },
+        {
+          "content_type":"text",
+          "title":"Sports",
+          "payload":"DT Sports"
+        },
+        {
+          "content_type":"text",
+          "title":"Lifestyle",
+          "payload":"DT Lifestyle"
+        },
+        {
+          "content_type":"text",
+          "title":"Opinion",
+          "payload":"DT Opinion"
         }
       ]
   }
