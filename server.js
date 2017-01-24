@@ -356,17 +356,21 @@ function apiaiCall(text, sender) {
 
                 if(response.result.parameters.dailyTrojan == 'lifestyle' || response.result.parameters.dailyTrojan == 'opinion') {
                   dailyTrojanHeadlines = db.collection('DailyTrojanLO'); // find stored building hours
+                  dailyTrojanHeadlines.find({'category': response.result.parameters.dailyTrojan}).limit(10).toArray(function(err, returnedEvent) {
+                    sendHeadlinesCard(sender, returnedEvent);
+                });
+                db.close();
                 } else if (response.result.parameters.dailyTrojan == 'news' || response.result.parameters.dailyTrojan == 'sports') {
-                  dailyTrojanHeadlines += db.collection('DailyTrojanNS');
+                  dailyTrojanHeadlines = db.collection('DailyTrojanNS');
+                  dailyTrojanHeadlines.find({'category': response.result.parameters.dailyTrojan}).limit(10).toArray(function(err, returnedEvent) {
+                    sendHeadlinesCard(sender, returnedEvent);
+                });
+                db.close();
                 } else {
                   sendTextMessage(sender, "Error Message");
                 }
 
-                dailyTrojanHeadlines.find({'category': response.result.parameters.dailyTrojan}).limit(10).toArray(function(err, returnedEvent) {
-
-                    sendHeadlinesCard(sender, returnedEvent);
-                });
-                db.close();
+                
           });
         }
         else {
