@@ -637,6 +637,11 @@ function getStarted(sender) {
             "title":"Dining",
             "payload":"What can you tell me about dining hall menus?"
           }
+          {
+            "type":"postback",
+            "title":"Daily Trojan",
+            "payload":"What can you tell me about daily trojan headlines?"
+          }
         ]
       }
     }
