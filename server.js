@@ -362,7 +362,7 @@ function apiaiCall(text, sender) {
                   sendTextMessage(sender, "Error Message");
                 }
 
-                dailyTrojanHeadlines.find({'category': response.result.parameters.dailyTrojan}).limit(10).toArray(function(err, returnedEvent) {
+                dailyTrojanHeadlines.find({'category': response.result.parameters.dailyTrojan}).limit(10).toArray(function(err, returnedEvent)) {
 
                     sendHeadlinesCard(sender, returnedEvent);
                 }
