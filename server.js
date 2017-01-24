@@ -1033,7 +1033,7 @@ function sendHeadlinesCard(sender, eventStats) {
                   {
                     "type": "web_url",
                     "url": eventLink,
-                    "title":"More Info"
+                    "title":"Read Article"
                   }
                 ]
             });
