@@ -24,11 +24,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
     },
     {
       "type":"postback",
-      "title":"Daily Trojan",
-      "payload":"What can you tell me about daily trojan headlines?"
-    },
-    {
-      "type":"postback",
       "title":"What else can Tommy do?",
       "payload":"help"
     }
@@ -45,4 +40,4 @@ curl -X POST -H "Content-Type: application/json" -d '{
       "payload":"Get Started"
     }
   ]
-}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=ACCESS_TOKEN" 
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=ACCESS_TOKEN"
