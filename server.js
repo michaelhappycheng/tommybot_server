@@ -51,12 +51,12 @@ app.post('/webhook/', function(req, res) {
             if (sender != 306268366415607) { // ignores messages sent by Tommy
                 recordMessageDataAnalytics(1);
                 sendDots(sender);
-                apiaiCall(text, sender);
+                apiaiCall.apiaiCall(text, sender);
             }
         }
         if (event.postback) {
             text = event.postback.payload;
-            apiaiCall(text, sender);
+            apiaiCall.apiaiCall(text, sender);
         }
     }
     res.sendStatus(200);
