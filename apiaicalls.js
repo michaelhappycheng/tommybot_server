@@ -1,6 +1,5 @@
-var apiai = require('apiai');
-
-module.exports = function apiaiCall(text, sender) {
+module.exports = function(apiaiApp) {
+  function apiaiCall(text, sender) {
         var request = apiaiApp.textRequest(text, {
             sessionId: process.env.apiaiSessionId
         }); //sends text request to api.ai
@@ -329,3 +328,4 @@ module.exports = function apiaiCall(text, sender) {
 
         request.end();
     }
+}
