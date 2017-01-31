@@ -16,6 +16,7 @@ var apiaiApp = apiai(process.env.apiaiToken);
 
 // Testing whether requiring another file works
 var apiaiCall = require('./apiaicalls.js')(apiaiApp);
+console.log(apiaiCall);
 
 //connect to database
 var url = (process.env.MONGODB_URI);
