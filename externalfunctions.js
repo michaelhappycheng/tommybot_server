@@ -1,7 +1,7 @@
 module.exports = {
 capitalizeFirstLetter: function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+},
 
 formatDate: function formatDate(date) {
     var d = new Date(date),
@@ -13,7 +13,7 @@ formatDate: function formatDate(date) {
     if (day.length < 2) day = '0' + day;
 
     return [month, day, year].join('/');
-}
+},
 
 formatDateYY: function formatDateYY(date) {
     var d = new Date(date),
@@ -25,7 +25,7 @@ formatDateYY: function formatDateYY(date) {
     if (day.length < 2) day = '0' + day;
 
     return [month, day, year].join('/');
-}
+},
 
 sendMenuChoiceCard: function sendMenuChoiceCard(senderID, diningHall) {
     messageData = {
@@ -111,7 +111,7 @@ sendMenuChoiceCard: function sendMenuChoiceCard(senderID, diningHall) {
             console.log('Error: ', response.body.error)
         }
     })
-}
+},
 
 sendMenuCard: function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
     console.log(menu);
@@ -170,7 +170,7 @@ sendMenuCard: function sendMenuCard(senderID, menu, mealPreferences, diningHall)
             }
         }
     }
-}
+},
 
 sendBuildingCard: function sendBuildingCard(senderID, building, hyperlinkText) {
     messageData = {
@@ -214,7 +214,7 @@ sendBuildingCard: function sendBuildingCard(senderID, building, hyperlinkText) {
             console.log('Error: ', response.body.error)
         }
     })
-}
+},
 
 sendTextMessage: function sendTextMessage(sender, text) {
     messageData = {
@@ -239,7 +239,7 @@ sendTextMessage: function sendTextMessage(sender, text) {
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 getStarted: function getStarted(sender) {
     messageData = {
@@ -286,7 +286,7 @@ getStarted: function getStarted(sender) {
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 sendLocationQuickRepliesMessage: function sendLocationQuickRepliesMessage(sender, text) {
 
@@ -348,7 +348,7 @@ sendLocationQuickRepliesMessage: function sendLocationQuickRepliesMessage(sender
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 sendHoursQuickRepliesMessage: function sendHoursQuickRepliesMessage(sender, text) {
     messageData = {
@@ -399,7 +399,7 @@ sendHoursQuickRepliesMessage: function sendHoursQuickRepliesMessage(sender, text
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 sendDiningQuickRepliesMessage: function sendDiningQuickRepliesMessage(sender, text) {
     messageData = {
@@ -440,7 +440,7 @@ sendDiningQuickRepliesMessage: function sendDiningQuickRepliesMessage(sender, te
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 sendEventQuickRepliesMessage: function sendEventQuickRepliesMessage(sender, text) {
     messageData = {
@@ -491,7 +491,7 @@ sendEventQuickRepliesMessage: function sendEventQuickRepliesMessage(sender, text
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 sendDTQuickRepliesMessage: function sendDTQuickRepliesMessage(sender, text) {
 
@@ -538,7 +538,7 @@ sendDTQuickRepliesMessage: function sendDTQuickRepliesMessage(sender, text) {
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 sendEventsChoiceCard: function sendEventsChoiceCard(senderID, calendarName) {
     console.log('eventschoice!!! BUG' + calendarName);
@@ -587,7 +587,7 @@ sendEventsChoiceCard: function sendEventsChoiceCard(senderID, calendarName) {
             console.log('Error: ', response.body.error)
         }
     })
-}
+},
 
 sendEventsCard: function sendEventsCard(sender, eventStats) {
 
@@ -651,7 +651,7 @@ sendEventsCard: function sendEventsCard(sender, eventStats) {
             }
         })
     }
-}
+},
 
 sendHeadlinesCard: function sendHeadlinesCard(sender, eventStats) {
 
@@ -713,7 +713,7 @@ sendHeadlinesCard: function sendHeadlinesCard(sender, eventStats) {
             }
         })
     }
-}
+},
 
 sendDots: function sendDots(sender) {
     request({
@@ -735,13 +735,13 @@ sendDots: function sendDots(sender) {
             console.log('Error: ', response.body.error);
         }
     })
-}
+},
 
 find: function find(collec, query, callback) {
     mongoose.connection.db.collection(collec, function(err, collection) {
         collection.find(query).toArray(callback);
     });
-}
+},
 
 recordMessageDataAnalytics: function recordMessageDataAnalytics(number) {
     MongoClient.connect(url, function(err, db) {
@@ -778,5 +778,5 @@ recordMessageDataAnalytics: function recordMessageDataAnalytics(number) {
 
         db.close();
     });
-}
+},
 }
