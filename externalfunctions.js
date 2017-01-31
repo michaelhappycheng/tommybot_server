@@ -1,3 +1,4 @@
+var MongoClient = require('mongodb').MongoClient;
 var apiai = require('apiai');
 var token = (process.env.facebookToken);
 var apiaiApp = apiai(process.env.apiaiToken);
