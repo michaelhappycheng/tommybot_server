@@ -7,8 +7,6 @@ var app = express();
 var MongoClient = require('mongodb').MongoClient,
     assert = require('assert');
 
-// Testing whether requiring another file works
-var apiaiCall = require('./apiaicalls.js');
 
 // Setting port to default 5000 if there are no assigned ports
 app.set('port', (process.env.PORT || 5000));
@@ -16,6 +14,9 @@ app.set('port', (process.env.PORT || 5000));
 //authenticating into Facebook and API.AI
 var token = (process.env.facebookToken);
 var apiaiApp = apiai(process.env.apiaiToken);
+
+// Testing whether requiring another file works
+var apiaiCall = require('./apiaicalls.js');
 
 //connect to database
 var url = (process.env.MONGODB_URI);
