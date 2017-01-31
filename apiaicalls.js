@@ -1,3 +1,5 @@
+var apiai = require('apiai');
+
 module.exports = function apiaiCall(text, sender) {
         var request = apiaiApp.textRequest(text, {
             sessionId: process.env.apiaiSessionId
