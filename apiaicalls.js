@@ -1,5 +1,6 @@
 var apiai = require('apiai');
 var apiaiApp = apiai(process.env.apiaiToken);
+require('./externalfunctions.js');
 
 module.exports = {
   apiaiCall: function apiaiCall(text, sender) {
