@@ -328,4 +328,4 @@ module.exports = function(apiaiApp) {
 
         request.end();
     }
-}
+};
