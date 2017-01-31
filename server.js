@@ -15,7 +15,7 @@ var token = (process.env.facebookToken);
 var apiaiApp = apiai(process.env.apiaiToken);
 
 // Testing whether requiring another file works
-var attempt = require('./apiaicalls.js')(apiaiApp);
+var attempt = require('./apiaicalls.js');
 console.log(attempt);
 
 //connect to database
