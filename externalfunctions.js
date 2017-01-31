@@ -1,9 +1,9 @@
 module.exports = {
-capitalizeFirstLetter: function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-formatDate: function formatDate(date) {
+function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -15,7 +15,7 @@ formatDate: function formatDate(date) {
     return [month, day, year].join('/');
 }
 
-formatDateYY: function formatDateYY(date) {
+function formatDateYY(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -27,7 +27,7 @@ formatDateYY: function formatDateYY(date) {
     return [month, day, year].join('/');
 }
 
-sendMenuChoiceCard: function sendMenuChoiceCard(senderID, diningHall) {
+function sendMenuChoiceCard(senderID, diningHall) {
     messageData = {
         "attachment": {
             "type": "template",
@@ -113,7 +113,7 @@ sendMenuChoiceCard: function sendMenuChoiceCard(senderID, diningHall) {
     })
 }
 
-sendMenuCard: function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
+function sendMenuCard(senderID, menu, mealPreferences, diningHall) {
     console.log(menu);
     if (menu[0].stations.length == 0) {
         sendTextMessage(senderID, "Sorry, that meal time is not available for today. Please select the proper option in the below menu.");
@@ -172,7 +172,7 @@ sendMenuCard: function sendMenuCard(senderID, menu, mealPreferences, diningHall)
     }
 }
 
-sendBuildingCard: function sendBuildingCard(senderID, building, hyperlinkText) {
+function sendBuildingCard(senderID, building, hyperlinkText) {
     messageData = {
         "attachment": {
             "type": "template",
@@ -216,7 +216,7 @@ sendBuildingCard: function sendBuildingCard(senderID, building, hyperlinkText) {
     })
 }
 
-sendTextMessage: function sendTextMessage(sender, text) {
+function sendTextMessage(sender, text) {
     messageData = {
         text: text
     }
@@ -241,7 +241,7 @@ sendTextMessage: function sendTextMessage(sender, text) {
     })
 }
 
-getStarted: function getStarted(sender) {
+function getStarted(sender) {
     messageData = {
         "attachment": {
             "type": "template",
@@ -288,7 +288,7 @@ getStarted: function getStarted(sender) {
     })
 }
 
-sendLocationQuickRepliesMessage: function sendLocationQuickRepliesMessage(sender, text) {
+function sendLocationQuickRepliesMessage(sender, text) {
 
     messageData = {
         "text": text,
@@ -350,7 +350,7 @@ sendLocationQuickRepliesMessage: function sendLocationQuickRepliesMessage(sender
     })
 }
 
-sendHoursQuickRepliesMessage: function sendHoursQuickRepliesMessage(sender, text) {
+function sendHoursQuickRepliesMessage(sender, text) {
     messageData = {
         "text": text,
         "quick_replies": [{
@@ -401,7 +401,7 @@ sendHoursQuickRepliesMessage: function sendHoursQuickRepliesMessage(sender, text
     })
 }
 
-sendDiningQuickRepliesMessage: function sendDiningQuickRepliesMessage(sender, text) {
+function sendDiningQuickRepliesMessage(sender, text) {
     messageData = {
         "text": text,
         "quick_replies": [{
@@ -442,7 +442,7 @@ sendDiningQuickRepliesMessage: function sendDiningQuickRepliesMessage(sender, te
     })
 }
 
-sendEventQuickRepliesMessage: function sendEventQuickRepliesMessage(sender, text) {
+function sendEventQuickRepliesMessage(sender, text) {
     messageData = {
         "text": text,
         "quick_replies": [{
@@ -493,7 +493,7 @@ sendEventQuickRepliesMessage: function sendEventQuickRepliesMessage(sender, text
     })
 }
 
-sendDTQuickRepliesMessage: function sendDTQuickRepliesMessage(sender, text) {
+function sendDTQuickRepliesMessage(sender, text) {
 
     messageData = {
         "text": text,
@@ -540,7 +540,7 @@ sendDTQuickRepliesMessage: function sendDTQuickRepliesMessage(sender, text) {
     })
 }
 
-sendEventsChoiceCard: function sendEventsChoiceCard(senderID, calendarName) {
+function sendEventsChoiceCard(senderID, calendarName) {
     console.log('eventschoice!!! BUG' + calendarName);
     messageData = {
         "attachment": {
@@ -589,7 +589,7 @@ sendEventsChoiceCard: function sendEventsChoiceCard(senderID, calendarName) {
     })
 }
 
-sendEventsCard: function sendEventsCard(sender, eventStats) {
+function sendEventsCard(sender, eventStats) {
 
     if (!eventStats || eventStats.length == 0) {
         sendTextMessage(sender, "Sorry, there no events for that calandar for that specified section of time.");
@@ -653,7 +653,7 @@ sendEventsCard: function sendEventsCard(sender, eventStats) {
     }
 }
 
-sendHeadlinesCard: function sendHeadlinesCard(sender, eventStats) {
+function sendHeadlinesCard(sender, eventStats) {
 
     if (!eventStats || eventStats.length == 0) {
         sendTextMessage(sender, "Sorry, there no events for that calandar for that specified section of time.");
@@ -715,7 +715,7 @@ sendHeadlinesCard: function sendHeadlinesCard(sender, eventStats) {
     }
 }
 
-sendDots: function sendDots(sender) {
+function sendDots(sender) {
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {
@@ -737,13 +737,13 @@ sendDots: function sendDots(sender) {
     })
 }
 
-find: function find(collec, query, callback) {
+function find(collec, query, callback) {
     mongoose.connection.db.collection(collec, function(err, collection) {
         collection.find(query).toArray(callback);
     });
 }
 
-recordMessageDataAnalytics: function recordMessageDataAnalytics(number) {
+function recordMessageDataAnalytics(number) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
         console.log("Connected correctly to server");
