@@ -15,7 +15,8 @@ var token = (process.env.facebookToken);
 var apiaiApp = apiai(process.env.apiaiToken);
 
 // Testing whether requiring another file works
-require('./apiaicalls.js')(apiaiApp);
+var attempt = require('./apiaicalls.js')(apiaiApp);
+console.log(attempt);
 
 //connect to database
 var url = (process.env.MONGODB_URI);
@@ -51,12 +52,12 @@ app.post('/webhook/', function(req, res) {
             if (sender != 306268366415607) { // ignores messages sent by Tommy
                 recordMessageDataAnalytics(1);
                 sendDots(sender);
-                apiaiCall(text, sender);
+                attempt.apiaiCall(text, sender);
             }
         }
         if (event.postback) {
             text = event.postback.payload;
-            apiaiCall(text, sender);
+            attempt.apiaiCall(text, sender);
         }
     }
     res.sendStatus(200);
