@@ -1,8 +1,10 @@
 var MongoClient = require('mongodb').MongoClient;
+var request = require('request');
 var url = (process.env.MONGODB_URI);
 var apiai = require('apiai');
 var token = (process.env.facebookToken);
 var apiaiApp = apiai(process.env.apiaiToken);
+var assert = require('assert');
 
 module.exports = {
 capitalizeFirstLetter: function capitalizeFirstLetter(string) {

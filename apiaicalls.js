@@ -1,8 +1,10 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = (process.env.MONGODB_URI);
+var request = require('request');
 var apiai = require('apiai');
 var apiaiApp = apiai(process.env.apiaiToken);
 var token = (process.env.facebookToken);
+var assert = require('assert');
 require('./externalfunctions.js');
 
 module.exports = {
