@@ -12,7 +12,6 @@ app.set('port', (process.env.PORT || 5000));
 
 //authenticating into Facebook and API.AI
 var token = (process.env.facebookToken);
-var apiaiApp = apiai(process.env.apiaiToken);
 
 // Testing whether requiring another file works
 var attempt = require('./apiaicalls.js');
