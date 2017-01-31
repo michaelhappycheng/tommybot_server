@@ -1,5 +1,5 @@
 module.exports = function(apiaiApp) {
-  apiaiCall: function apiaiCall(text, sender) {
+  this.apiaiCall: function apiaiCall(text, sender) {
         var request = apiaiApp.textRequest(text, {
             sessionId: process.env.apiaiSessionId
         }); //sends text request to api.ai

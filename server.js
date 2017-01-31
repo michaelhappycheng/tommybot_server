@@ -15,8 +15,7 @@ var token = (process.env.facebookToken);
 var apiaiApp = apiai(process.env.apiaiToken);
 
 // Testing whether requiring another file works
-var apiaiCall = require('./apiaicalls.js')(apiaiApp);
-console.log(apiaiCall);
+require('./apiaicalls.js')(apiaiApp);
 
 //connect to database
 var url = (process.env.MONGODB_URI);
