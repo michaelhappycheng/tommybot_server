@@ -16,7 +16,7 @@ var token = (process.env.facebookToken);
 // Testing whether requiring another file works
 var attempt = require('./apiaicalls.js');
 console.log(attempt);
-require('./externalfunctions.js')
+require('./externalfunctions.js');
 
 //connect to database
 var url = (process.env.MONGODB_URI);
