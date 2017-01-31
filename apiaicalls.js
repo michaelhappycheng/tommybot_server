@@ -1,4 +1,4 @@
-module.exports = function(apiaiApp) {
+module.exports = {
   apiaiCall: function apiaiCall(text, sender) {
         var request = apiaiApp.textRequest(text, {
             sessionId: process.env.apiaiSessionId
