@@ -778,5 +778,5 @@ recordMessageDataAnalytics: function recordMessageDataAnalytics(number) {
 
         db.close();
     });
-},
+}
 }
