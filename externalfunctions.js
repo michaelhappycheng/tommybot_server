@@ -1,3 +1,6 @@
+var token = (process.env.facebookToken);
+var apiaiApp = apiai(process.env.apiaiToken);
+
 module.exports = {
 capitalizeFirstLetter: function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

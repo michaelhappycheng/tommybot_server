@@ -12,11 +12,12 @@ app.set('port', (process.env.PORT || 5000));
 
 //authenticating into Facebook and API.AI
 var token = (process.env.facebookToken);
+var apiaiApp = apiai(process.env.apiaiToken);
 
 // Testing whether requiring another file works
 var attempt = require('./apiaicalls.js');
 console.log(attempt);
-require('./externalfunctions.js');
+var attempt2 = require('./externalfunctions.js');
 
 //connect to database
 var url = (process.env.MONGODB_URI);
@@ -50,8 +51,8 @@ app.post('/webhook/', function(req, res) {
         if (event.message && event.message.text) {
             text = event.message.text;
             if (sender != 306268366415607) { // ignores messages sent by Tommy
-                recordMessageDataAnalytics(1);
-                sendDots(sender);
+                attempt2.recordMessageDataAnalytics(1);
+                attempt2.sendDots(sender);
                 attempt.apiaiCall(text, sender);
             }
         }

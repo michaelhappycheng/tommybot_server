@@ -1,6 +1,6 @@
 var apiai = require('apiai');
-//var apiaiApp = apiai(process.env.apiaiToken);
-var apiaiApp = apiai('aaa');
+var apiaiApp = apiai(process.env.apiaiToken);
+var token = (process.env.facebookToken);
 require('./externalfunctions.js');
 
 module.exports = {
