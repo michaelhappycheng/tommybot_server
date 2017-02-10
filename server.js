@@ -20,6 +20,7 @@ var url = (process.env.MONGODB_URI);
 // pulling other functions
 var misc = require('./js/misc.js');
 var cards = require('./js/cards.js');
+var= require('./js/quickMessages.js');
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
@@ -146,7 +147,7 @@ function apiaiCall(text, sender) {
                         });
                     }
                 } else {
-                    sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
+                    qMessages.sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
                 }
             } else if (response.result.action == "getLocation") {
                 if (response.result.parameters.building != '') {
@@ -242,13 +243,13 @@ function apiaiCall(text, sender) {
                 });
             } else if (response.result.action == "getGeneral") {
                 if (response.result.parameters.generalCategories == 'directions') {
-                    sendLocationQuickRepliesMessage(sender, 'What building can I direct you to? Choose one of the more popular buildings below or ask by yourself with "Where is ___?" I understand 3 letter codes best.');
+                    qMessages.sendLocationQuickRepliesMessage(sender, 'What building can I direct you to? Choose one of the more popular buildings below or ask by yourself with "Where is ___?" I understand 3 letter codes best.');
                 } else if (response.result.parameters.generalCategories == 'hours') {
-                    sendHoursQuickRepliesMessage(sender, 'What building can I get you hours for? Choose one of the more popular options below or ask by yourself with "hours for _____?"');
+                    qMessages.sendHoursQuickRepliesMessage(sender, 'What building can I get you hours for? Choose one of the more popular options below or ask by yourself with "hours for _____?"');
                 } else if (response.result.parameters.generalCategories == 'dining') {
-                    sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
+                    qMessages.sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
                 } else if (response.result.parameters.generalCategories == 'events') {
-                    sendEventQuickRepliesMessage(sender, 'Pick from the options below for what type of event you want!');
+                    qMessages.sendEventQuickRepliesMessage(sender, 'Pick from the options below for what type of event you want!');
                 }
             } else if (response.result.action == "getEvent") {
                 {
@@ -345,7 +346,7 @@ function apiaiCall(text, sender) {
                             cards.sendEventsChoiceCard(sender, 'Dornsife');
                         }
                     } else {
-                        sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
+                        qMessages.sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
                     }
                 }
             } else if (response.result.action == "getDailyTrojan") {
@@ -374,10 +375,8 @@ function apiaiCall(text, sender) {
                         db.close();
                     } else {
 
-                        sendDTQuickRepliesMessage(sender, 'Pick the type of headline you want!');
+                        qMessages.sendDTQuickRepliesMessage(sender, 'Pick the type of headline you want!');
                     }
-
-
                 });
             } else {
                 sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
@@ -782,257 +781,257 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendLocationQuickRepliesMessage(sender, text) {
+// function sendLocationQuickRepliesMessage(sender, text) {
+//
+//     messageData = {
+//         "text": text,
+//         "quick_replies": [{
+//                 "content_type": "text",
+//                 "title": "VKC",
+//                 "payload": "Where is VKC?"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "TCC",
+//                 "payload": "Where is TCC?"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "THH",
+//                 "payload": "Where is THH?"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "WPH",
+//                 "payload": "Where is WPH?"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "RTH",
+//                 "payload": "Where is RTH?"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "ADM",
+//                 "payload": "Where is ADM?"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "SGM",
+//                 "payload": "Where is SGM?"
+//             }
+//         ]
+//     }
+//     request({
+//         url: 'https://graph.facebook.com/v2.6/me/messages',
+//         qs: {
+//             access_token: token
+//         },
+//         method: 'POST',
+//         json: {
+//             recipient: {
+//                 id: sender
+//             },
+//             message: messageData,
+//         }
+//     }, function(error, response, body) {
+//         if (error) {
+//             console.log('Error sending messages: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//     })
+// }
 
-    messageData = {
-        "text": text,
-        "quick_replies": [{
-                "content_type": "text",
-                "title": "VKC",
-                "payload": "Where is VKC?"
-            },
-            {
-                "content_type": "text",
-                "title": "TCC",
-                "payload": "Where is TCC?"
-            },
-            {
-                "content_type": "text",
-                "title": "THH",
-                "payload": "Where is THH?"
-            },
-            {
-                "content_type": "text",
-                "title": "WPH",
-                "payload": "Where is WPH?"
-            },
-            {
-                "content_type": "text",
-                "title": "RTH",
-                "payload": "Where is RTH?"
-            },
-            {
-                "content_type": "text",
-                "title": "ADM",
-                "payload": "Where is ADM?"
-            },
-            {
-                "content_type": "text",
-                "title": "SGM",
-                "payload": "Where is SGM?"
-            }
-        ]
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {
-            access_token: token
-        },
-        method: 'POST',
-        json: {
-            recipient: {
-                id: sender
-            },
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    })
-}
+// function sendHoursQuickRepliesMessage(sender, text) {
+//     messageData = {
+//         "text": text,
+//         "quick_replies": [{
+//                 "content_type": "text",
+//                 "title": "Leavey hours",
+//                 "payload": "Leavey hours"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "EVK hours",
+//                 "payload": "EVK hours"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Parkside hours",
+//                 "payload": "Parkside hours"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Cafe 84 hours",
+//                 "payload": "Cafe 84 hours"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Doheny hours",
+//                 "payload": "Doheny hours"
+//             }
+//         ]
+//     }
+//     request({
+//         url: 'https://graph.facebook.com/v2.6/me/messages',
+//         qs: {
+//             access_token: token
+//         },
+//         method: 'POST',
+//         json: {
+//             recipient: {
+//                 id: sender
+//             },
+//             message: messageData,
+//         }
+//     }, function(error, response, body) {
+//         if (error) {
+//             console.log('Error sending messages: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//     })
+// }
 
-function sendHoursQuickRepliesMessage(sender, text) {
-    messageData = {
-        "text": text,
-        "quick_replies": [{
-                "content_type": "text",
-                "title": "Leavey hours",
-                "payload": "Leavey hours"
-            },
-            {
-                "content_type": "text",
-                "title": "EVK hours",
-                "payload": "EVK hours"
-            },
-            {
-                "content_type": "text",
-                "title": "Parkside hours",
-                "payload": "Parkside hours"
-            },
-            {
-                "content_type": "text",
-                "title": "Cafe 84 hours",
-                "payload": "Cafe 84 hours"
-            },
-            {
-                "content_type": "text",
-                "title": "Doheny hours",
-                "payload": "Doheny hours"
-            }
-        ]
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {
-            access_token: token
-        },
-        method: 'POST',
-        json: {
-            recipient: {
-                id: sender
-            },
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    })
-}
+// function sendDiningQuickRepliesMessage(sender, text) {
+//     messageData = {
+//         "text": text,
+//         "quick_replies": [{
+//                 "content_type": "text",
+//                 "title": "EVK menu",
+//                 "payload": "EVK menu"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Parkside menu",
+//                 "payload": "Parkside menu"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Cafe 84 menu",
+//                 "payload": "Cafe 84 menu"
+//             }
+//         ]
+//     }
+//     request({
+//         url: 'https://graph.facebook.com/v2.6/me/messages',
+//         qs: {
+//             access_token: token
+//         },
+//         method: 'POST',
+//         json: {
+//             recipient: {
+//                 id: sender
+//             },
+//             message: messageData,
+//         }
+//     }, function(error, response, body) {
+//         if (error) {
+//             console.log('Error sending messages: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//     })
+// }
 
-function sendDiningQuickRepliesMessage(sender, text) {
-    messageData = {
-        "text": text,
-        "quick_replies": [{
-                "content_type": "text",
-                "title": "EVK menu",
-                "payload": "EVK menu"
-            },
-            {
-                "content_type": "text",
-                "title": "Parkside menu",
-                "payload": "Parkside menu"
-            },
-            {
-                "content_type": "text",
-                "title": "Cafe 84 menu",
-                "payload": "Cafe 84 menu"
-            }
-        ]
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {
-            access_token: token
-        },
-        method: 'POST',
-        json: {
-            recipient: {
-                id: sender
-            },
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    })
-}
+// function sendEventQuickRepliesMessage(sender, text) {
+//     messageData = {
+//         "text": text,
+//         "quick_replies": [{
+//                 "content_type": "text",
+//                 "title": "Visions & Voices Events",
+//                 "payload": "V&V_EVENTS"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Viterbi Events",
+//                 "payload": "VITERBI_EVENTS"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Dornsife Events",
+//                 "payload": "DORNSIFE_EVENTS"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Sports Events",
+//                 "payload": "SPORT_EVENTS"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Miscellaneous Events",
+//                 "payload": "MISCELLANEOUS_EVENTS"
+//             }
+//         ]
+//     }
+//     request({
+//         url: 'https://graph.facebook.com/v2.6/me/messages',
+//         qs: {
+//             access_token: token
+//         },
+//         method: 'POST',
+//         json: {
+//             recipient: {
+//                 id: sender
+//             },
+//             message: messageData,
+//         }
+//     }, function(error, response, body) {
+//         if (error) {
+//             console.log('Error sending messages: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//     })
+// }
 
-function sendEventQuickRepliesMessage(sender, text) {
-    messageData = {
-        "text": text,
-        "quick_replies": [{
-                "content_type": "text",
-                "title": "Visions & Voices Events",
-                "payload": "V&V_EVENTS"
-            },
-            {
-                "content_type": "text",
-                "title": "Viterbi Events",
-                "payload": "VITERBI_EVENTS"
-            },
-            {
-                "content_type": "text",
-                "title": "Dornsife Events",
-                "payload": "DORNSIFE_EVENTS"
-            },
-            {
-                "content_type": "text",
-                "title": "Sports Events",
-                "payload": "SPORT_EVENTS"
-            },
-            {
-                "content_type": "text",
-                "title": "Miscellaneous Events",
-                "payload": "MISCELLANEOUS_EVENTS"
-            }
-        ]
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {
-            access_token: token
-        },
-        method: 'POST',
-        json: {
-            recipient: {
-                id: sender
-            },
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    })
-}
-
-function sendDTQuickRepliesMessage(sender, text) {
-
-    messageData = {
-        "text": text,
-        "quick_replies": [{
-                "content_type": "text",
-                "title": "News",
-                "payload": "DT News"
-            },
-            {
-                "content_type": "text",
-                "title": "Sports",
-                "payload": "DT Sports"
-            },
-            {
-                "content_type": "text",
-                "title": "Lifestyle",
-                "payload": "DT Lifestyle"
-            },
-            {
-                "content_type": "text",
-                "title": "Opinion",
-                "payload": "DT Opinion"
-            }
-        ]
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {
-            access_token: token
-        },
-        method: 'POST',
-        json: {
-            recipient: {
-                id: sender
-            },
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-        }
-    })
-}
+// function sendDTQuickRepliesMessage(sender, text) {
+//
+//     messageData = {
+//         "text": text,
+//         "quick_replies": [{
+//                 "content_type": "text",
+//                 "title": "News",
+//                 "payload": "DT News"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Sports",
+//                 "payload": "DT Sports"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Lifestyle",
+//                 "payload": "DT Lifestyle"
+//             },
+//             {
+//                 "content_type": "text",
+//                 "title": "Opinion",
+//                 "payload": "DT Opinion"
+//             }
+//         ]
+//     }
+//     request({
+//         url: 'https://graph.facebook.com/v2.6/me/messages',
+//         qs: {
+//             access_token: token
+//         },
+//         method: 'POST',
+//         json: {
+//             recipient: {
+//                 id: sender
+//             },
+//             message: messageData,
+//         }
+//     }, function(error, response, body) {
+//         if (error) {
+//             console.log('Error sending messages: ', error);
+//         } else if (response.body.error) {
+//             console.log('Error: ', response.body.error);
+//         }
+//     })
+// }
 
 // Spin up the server
 app.listen(app.get('port'), function() {

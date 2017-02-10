@@ -18,7 +18,7 @@ var apiaiApp = apiai(process.env.apiaiToken || "hello");
 var url = (process.env.MONGODB_URI);
 
 /*
-MISCELLANEOUS FUNCTIONS USED FOR TOMMY BOT
+CARDS FUNCTIONS USED FOR TOMMY BOT
 */
 
 module.exports = {
