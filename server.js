@@ -20,7 +20,7 @@ var url = (process.env.MONGODB_URI);
 // pulling other functions
 var misc = require('./js/misc.js');
 var cards = require('./js/cards.js');
-var= require('./js/quickMessages.js');
+var qMessages = require('./js/quickMessages.js');
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
