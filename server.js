@@ -91,7 +91,7 @@ function apiaiCall(text, sender) {
                             assert.equal(null, err);
                             console.log("Connected correctly to server");
                             var dininghalls = db.collection('dininghalls'); //finding building
-                            dininghalls.misc.find({
+                            dininghalls.find({
                                 'name': response.result.parameters.dininghall,
                                 'mealtype': "Breakfast",
                                 'date': date
@@ -105,7 +105,7 @@ function apiaiCall(text, sender) {
                             assert.equal(null, err);
                             console.log("Connected correctly to server");
                             var dininghalls = db.collection('dininghalls'); //finding building
-                            dininghalls.misc.find({
+                            dininghalls.find({
                                 'name': response.result.parameters.dininghall,
                                 'mealtype': "Brunch",
                                 'date': date
@@ -119,7 +119,7 @@ function apiaiCall(text, sender) {
                             assert.equal(null, err);
                             console.log("Connected correctly to server");
                             var dininghalls = db.collection('dininghalls'); //finding building
-                            dininghalls.misc.find({
+                            dininghalls.find({
                                 'name': response.result.parameters.dininghall,
                                 'mealtype': "Lunch",
                                 'date': date
@@ -134,7 +134,7 @@ function apiaiCall(text, sender) {
                             console.log("Connected correctly to server");
                             console.log(response.result.parameters.dininghall + ' and ' + date);
                             var dininghalls = db.collection('dininghalls'); //finding building
-                            dininghalls.misc.find({
+                            dininghalls.find({
                                 'name': response.result.parameters.dininghall,
                                 'mealtype': "Dinner",
                                 'date': date
@@ -153,7 +153,7 @@ function apiaiCall(text, sender) {
                         assert.equal(null, err);
                         console.log("Connected correctly to server");
                         var buildings = db.collection('buildings'); //finding building
-                        buildings.misc.find({
+                        buildings.find({
                             'id': response.result.parameters.building
                         }).toArray(function(err, returnedBuilding) {
                             var hyperlinkBuildingAddress = returnedBuilding[0].address.replace(/ /g, "%20"); //reformats text for hyperlink
@@ -170,7 +170,7 @@ function apiaiCall(text, sender) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
                     var calender = db.collection('academicCalender'); //find dates
-                    calender.misc.find({
+                    calender.find({
                         'id': response.result.parameters.eventtype
                     }).toArray(function(err, returnedEvent) {
                         if (returnedEvent.length != 0) {
@@ -186,7 +186,7 @@ function apiaiCall(text, sender) {
                     assert.equal(null, err);
                     console.log("Connected correctly to server");
                     var hours = db.collection('buildingHours'); // find stored building hours
-                    hours.misc.find({
+                    hours.find({
                         'Building': response.result.parameters.buildingHours
                     }).toArray(function(err, returnedEvent) {
 
@@ -276,7 +276,7 @@ function apiaiCall(text, sender) {
                                 assert.equal(null, err);
                                 console.log("Connected correctly to server");
                                 var calender = db.collection('visionsAndVoices'); //find dates for Visions and Voices
-                                calender.misc.find({
+                                calender.find({
                                     'date': {
                                         $in: dates
                                     }
@@ -290,7 +290,7 @@ function apiaiCall(text, sender) {
                                 assert.equal(null, err);
                                 console.log("Connected correctly to server");
                                 var calender = db.collection('viterbiCalendar'); //find dates for Visions and Voices
-                                calender.misc.find({
+                                calender.find({
                                     'date': {
                                         $in: dates
                                     }
@@ -304,7 +304,7 @@ function apiaiCall(text, sender) {
                                 assert.equal(null, err);
                                 console.log("Connected correctly to server");
                                 var calender = db.collection('eventsCalendar'); //find dates for Visions and Voices
-                                calender.misc.find({
+                                calender.find({
                                     'date': {
                                         $in: dates
                                     }
@@ -321,7 +321,7 @@ function apiaiCall(text, sender) {
                                 assert.equal(null, err);
                                 console.log("Connected correctly to server");
                                 var calender = db.collection('dornsifeCalendar'); //find dates for Visions and Voices
-                                calender.misc.find({
+                                calender.find({
                                     'date': {
                                         $in: dates
                                     }
@@ -357,7 +357,7 @@ function apiaiCall(text, sender) {
 
                     if (response.result.parameters.dailyTrojan == 'lifestyle' || response.result.parameters.dailyTrojan == 'opinion') {
                         dailyTrojanHeadlines = db.collection('DailyTrojanLO'); // find stored building hours
-                        dailyTrojanHeadlines.misc.find({
+                        dailyTrojanHeadlines.find({
                             'category': response.result.parameters.dailyTrojan
                         }).limit(10).toArray(function(err, returnedEvent) {
                             sendHeadlinesCard(sender, returnedEvent);
@@ -365,7 +365,7 @@ function apiaiCall(text, sender) {
                         db.close();
                     } else if (response.result.parameters.dailyTrojan == 'news' || response.result.parameters.dailyTrojan == 'sports') {
                         dailyTrojanHeadlines = db.collection('DailyTrojanNS');
-                        dailyTrojanHeadlines.misc.find({
+                        dailyTrojanHeadlines.find({
                             'category': response.result.parameters.dailyTrojan
                         }).limit(10).toArray(function(err, returnedEvent) {
                             sendHeadlinesCard(sender, returnedEvent);
