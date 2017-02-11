@@ -387,7 +387,7 @@ sendHeadlinesCard: function sendHeadlinesCard(sender, eventStats) {
     }
 }
 
-function sendTextMessage(sender, text) {
+sendTextMessage: function sendTextMessage(sender, text) {
     messageData = {
         text: text
     }
