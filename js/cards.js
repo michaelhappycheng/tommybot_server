@@ -46,6 +46,92 @@ function sendTextMessage(sender, text) {
     })
 }
 
+function sendMenuChoiceCard(senderID, diningHall) {
+    messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "text": "Which meal do you want? (Mon - Fri)",
+                "buttons": [{
+                        "type": "postback",
+                        "title": "Breakfast",
+                        "payload": diningHall + " breakfast"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Lunch",
+                        "payload": diningHall + " lunch"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Dinner",
+                        "payload": diningHall + " dinner"
+                    },
+                ]
+            }
+        }
+    }
+    messageData2 = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "button",
+                "text": "Which meal do you want? (Weekend)",
+                "buttons": [{
+                        "type": "postback",
+                        "title": "Brunch",
+                        "payload": diningHall + " brunch"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "Dinner",
+                        "payload": diningHall + " dinner"
+                    },
+                ]
+            }
+        }
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {
+            access_token: token
+        },
+        method: 'POST',
+        json: {
+            recipient: {
+                id: senderID
+            },
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {
+            access_token: token
+        },
+        method: 'POST',
+        json: {
+            recipient: {
+                id: senderID
+            },
+            message: messageData2,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
 module.exports = {
 
 sendMenuChoiceCard: function sendMenuChoiceCard(senderID, diningHall) {
