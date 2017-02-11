@@ -120,12 +120,6 @@ sendDots: function sendDots(sender) {
     })
 },
 
-find: function find(collec, query, callback) {
-    mongoose.connection.db.collection(collec, function(err, collection) {
-        collection.find(query).toArray(callback);
-    });
-},
-
 recordMessageDataAnalytics: function recordMessageDataAnalytics(number) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
