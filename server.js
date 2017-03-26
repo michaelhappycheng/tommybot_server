@@ -75,6 +75,7 @@ function apiaiCall(text, sender) {
                 sendTextMessage(sender, response.result.fulfillment.speech);
             } else if (response.result.action == "getStarted") {
                 misc.getStarted(sender);
+                misc.recordIntentAnalytics("getStarted", 1);
             } else if (response.result.action == "getMenu") {
                 var date = '';
                 var clientDate = new Date();
@@ -149,6 +150,7 @@ function apiaiCall(text, sender) {
                 } else {
                     qMessages.sendDiningQuickRepliesMessage(sender, 'Pick from the options below for which dining hall menu you want!');
                 }
+              misc.recordIntentAnalytics("getMenu", 1);
             } else if (response.result.action == "getLocation") {
                 if (response.result.parameters.building != '') {
                     MongoClient.connect(url, function(err, db) {
@@ -167,6 +169,7 @@ function apiaiCall(text, sender) {
                 } else {
                     sendTextMessage(sender, "Sorry, I couldn't understand that - can you be more specific or try your building's 3-letter code? For a full list of buildings at USC visit - http://fmsmaps4.usc.edu/usc/php/bl_list_no.php");
                 }
+              misc.recordIntentAnalytics("getLocation", 1);
             } else if (response.result.action == "getAcademicEvent") {
                 MongoClient.connect(url, function(err, db) {
                     assert.equal(null, err);
@@ -183,6 +186,7 @@ function apiaiCall(text, sender) {
                     });
                     db.close();
                 });
+              misc.recordIntentAnalytics("getAcademicEvent", 1);
             } else if (response.result.action == "getHours") {
                 MongoClient.connect(url, function(err, db) {
                     assert.equal(null, err);
@@ -241,6 +245,7 @@ function apiaiCall(text, sender) {
                     });
                     db.close();
                 });
+              misc.recordIntentAnalytics("getHours", 1);
             } else if (response.result.action == "getGeneral") {
                 if (response.result.parameters.generalCategories == 'directions') {
                     qMessages.sendLocationQuickRepliesMessage(sender, 'What building can I direct you to? Choose one of the more popular buildings below or ask by yourself with "Where is ___?" I understand 3 letter codes best.');
@@ -251,6 +256,7 @@ function apiaiCall(text, sender) {
                 } else if (response.result.parameters.generalCategories == 'events') {
                     qMessages.sendEventQuickRepliesMessage(sender, 'Pick from the options below for what type of event you want!');
                 }
+              misc.recordIntentAnalytics("getGeneral", 1);
             } else if (response.result.action == "getEvent") {
                 {
                     if (response.result.parameters['date-period'] != "" && response.result.parameters.calendartype != "") {
@@ -349,6 +355,7 @@ function apiaiCall(text, sender) {
                         qMessages.sendEventQuickRepliesMessage(sender, 'You want events? Pick from the options below for what type of event you want!');
                     }
                 }
+              misc.recordIntentAnalytics("getEvent", 1);
             } else if (response.result.action == "getDailyTrojan") {
 
                 MongoClient.connect(url, function(err, db) {
@@ -378,9 +385,9 @@ function apiaiCall(text, sender) {
                         qMessages.sendDTQuickRepliesMessage(sender, 'Pick the type of headline you want!');
                     }
                 });
+              misc.recordIntentAnalytics("getDailyTrojan", 1);
             } else {
                 sendTextMessage(sender, "Sorry, I couldn't understand that. Can you try rephrasing the question? Keep in mind I am in open beta.");
-
             }
         }
     });

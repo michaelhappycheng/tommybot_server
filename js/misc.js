@@ -155,6 +155,43 @@ recordMessageDataAnalytics: function recordMessageDataAnalytics(number) {
 
         db.close();
     });
+},
+
+recordIntentAnalytics: function recordIntentAnalytics(intentName, number) {
+  MongoClient.connect(url, function(err, db) {
+      assert.equal(null, err);
+      console.log("Connected correctly to server");
+      var intentAnalytics = db.collection('intentAnalytics'); //finds the collection
+
+      // this way we can get PST time and date
+      var clientDate = new Date();
+      utc = clientDate.getTime() + (clientDate.getTimezoneOffset() * 60000);
+      var d = new Date(utc + (3600000 * -8));
+      var dd = d.getDate();
+      var mm = d.getMonth() + 1;
+      var yyyy = d.getFullYear();
+      if (dd < 10) {
+          dd = '0' + dd;
+      }
+      var todayStringFormat = mm + '/' + dd + '/' + yyyy;
+
+      // finds and modifies the proper code
+      dataAnalytics.findAndModify({
+          "date": todayStringFormat
+      }, {
+          rating: 1
+      }, {
+          "$inc": {
+              intentName: number
+          }
+      }, {
+          upsert: true
+      }, function(err, doc) {
+          console.log('find and modified  ' + doc);
+      });
+
+      db.close();
+  });
 }
 
 }
