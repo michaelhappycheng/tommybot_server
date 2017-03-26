@@ -175,15 +175,17 @@ recordIntentAnalytics: function recordIntentAnalytics(intentName, number) {
       }
       var todayStringFormat = mm + '/' + dd + '/' + yyyy;
 
+      // setting up action to pass into findAndModify
+      var action = {};
+      action[intentName] = number;
+
       // finds and modifies the proper code
       intentAnalytics.findAndModify({
           "date": todayStringFormat
       }, {
           rating: 1
       }, {
-          "$inc": {
-              intentName: number
-          }
+          "$inc": action
       }, {
           upsert: true
       }, function(err, doc) {
