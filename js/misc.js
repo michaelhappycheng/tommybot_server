@@ -176,7 +176,7 @@ recordIntentAnalytics: function recordIntentAnalytics(intentName, number) {
       var todayStringFormat = mm + '/' + dd + '/' + yyyy;
 
       // finds and modifies the proper code
-      dataAnalytics.findAndModify({
+      intentAnalytics.findAndModify({
           "date": todayStringFormat
       }, {
           rating: 1
